@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 name = 'normalizer'
 
@@ -12,6 +12,7 @@ setup (
         author_email = 'santhosh.thottingal@gmail.com',
         long_description = 'Normalizing module for Malayalam language',
         include_package_data = True,
+        packages = find_packages('.'),
         setup_requires = ['setuptools-git'],
         install_requires = ['setuptools'],
         zip_safe = False,

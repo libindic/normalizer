@@ -18,12 +18,13 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
 
-import codecs  
+import codecs
+import os
 
 class Normalizer:
 
 	def __init__(self):
-		self.rules_file = "normalizer_ml.rules"
+		self.rules_file = os.path.join(os.path.dirname(__file__),"normalizer_ml.rules")
 		self.rulesDict = dict()
 		
 	def normalize(self, text):
