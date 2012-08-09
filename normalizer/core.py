@@ -29,29 +29,25 @@ class Normalizer:
 		
 	def normalize(self, text):
 		self.rulesDict = self.LoadRules()
-		words=text.split(" ")
-		word_count=len(words)
-		result_dict = dict()
-		word_iter=0
-		word=""
-		while word_iter < word_count:
-			word = words[word_iter]
+		words = text.split(" ")
+		word_count = len(words)
+		result = ""
+		for word in words:
 			word = self.trim(word)
 			word_length = len(word)
 			suffix_pos_itr = 2
-			word_stemmed=""
+			word_stemmed = ""
 			while suffix_pos_itr < word_length :
 				suffix = word[suffix_pos_itr:word_length]
 				if suffix in self.rulesDict:
-					word_stemmed= word[0:suffix_pos_itr] +  self.rulesDict[suffix]
-					break;
-				suffix_pos_itr = suffix_pos_itr+1	
-			word_iter = word_iter+1
-			if(word_stemmed==""):
-				word_stemmed=word
-			result_dict[ word ] = word_stemmed
-		return result_dict
-					
+					word_stemmed = word[0:suffix_pos_itr] + self.rulesDict[suffix]
+					break
+				suffix_pos_itr = suffix_pos_itr+1
+			if(word_stemmed == ""):
+				word_stemmed = word
+			result += word_stemmed
+		return result
+
 	def LoadRules(self):	
 		rules_dict = dict()
 		line = []
