@@ -4,7 +4,7 @@ name = 'normalizer'
 
 setup (
         name = name,
-        version = '0.2',
+        version = '0.2.1',
         url = 'http://silpa.org.in/',
         license = 'LGPL 3.0',
         description = 'Malayalam language normalizer (Experimental)',
