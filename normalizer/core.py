@@ -56,7 +56,7 @@ class Normalizer:
 		rules_file = codecs. open(self.rules_file,encoding='utf-8', errors='ignore')
 		while 1:
 			line_number = line_number +1
-   			text = unicode( rules_file.readline())
+   			text = unicode(rules_file.readline())
 			if text == "":
 			      break
 			if text[0] == '#':
