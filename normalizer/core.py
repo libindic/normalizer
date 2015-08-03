@@ -20,87 +20,97 @@
 
 import codecs
 import os
+import sys
+
 
 class Normalizer:
 
-	def __init__(self):
-		self.rules_file = os.path.join(os.path.dirname(__file__),"normalizer_ml.rules")
-		self.rulesDict = dict()
+    def __init__(self):
+        self.rules_file = os.path.join(
+            os.path.dirname(__file__), "normalizer_ml.rules")
+        self.rulesDict = dict()
 
-	def normalize(self, text):
-		self.rulesDict = self.LoadRules()
-		words = text.split(" ")
-		word_count = len(words)
-		result = []
-		for word in words:
-			word = self.trim(word)
-			word_length = len(word)
-			suffix_pos_itr = 2
-			word_stemmed = ""
-			while suffix_pos_itr < word_length :
-				suffix = word[suffix_pos_itr:word_length]
-				if suffix in self.rulesDict:
-					word_stemmed = word[0:suffix_pos_itr] + self.rulesDict[suffix]
-					break
-				suffix_pos_itr = suffix_pos_itr+1
-			if(word_stemmed == ""):
-				word_stemmed = word
-			result.append(word_stemmed)
-		return "  ".join(result)
+    def normalize(self, text):
+        self.rulesDict = self.LoadRules()
+        words = text.split(" ")
+        word_count = len(words)
+        result = []
+        for word in words:
+            word = self.trim(word)
+            word_length = len(word)
+            suffix_pos_itr = 2
+            word_stemmed = ""
+            while suffix_pos_itr < word_length:
+                suffix = word[suffix_pos_itr:word_length]
+                if suffix in self.rulesDict:
+                    word_stemmed = word[
+                        0:suffix_pos_itr] + self.rulesDict[suffix]
+                    break
+                suffix_pos_itr = suffix_pos_itr + 1
+            if(word_stemmed == ""):
+                word_stemmed = word
+            result.append(word_stemmed)
+        return "  ".join(result)
 
-	def LoadRules(self):
-		rules_dict = dict()
-		line = []
-		line_number = 0
-		rule_number = 0
-		rules_file = codecs. open(self.rules_file,encoding='utf-8', errors='ignore')
-		while 1:
-			line_number = line_number +1
-   			text = unicode(rules_file.readline())
-			if text == "":
-			      break
-			if text[0] == '#':
-			      continue  #this is a comment - ignore
-			text = text.split("#")[0]   #remove the comment part of the line
-			line_number = line_number +1
-			line = text.strip()  # remove unwanted space
-			if(line == ""):
-				  continue
-			if(len(line.split("=")) != 2):
-					print "[Error] Syntax Error in the Rules. Line number: ",  line_number
-				  	print "Line: "+ text
-				  	continue
-	 		lhs = line.split("=") [ 0 ]  .strip()
-	 		rhs = line.split("=") [ 1 ]  .strip()
-	 		if(len(rhs)>0):
-	 			if(lhs[0]=='"'):
-	 				lhs=lhs[1:len(lhs)] # if the string is "quoted"
-	 			if(lhs[len(lhs)-1]=='"'):
-	 				lhs=lhs[0:len(lhs)-1] # if the string is "quoted"
-	 		if(len(rhs)>0):
-	 			if(rhs[0]=='"'):
-	 				rhs=rhs[1:len(rhs)]  # if the string is "quoted"
-	 			if(rhs[len(rhs)-1]=='"'):
-	 				rhs=rhs[0:len(rhs)-1]	 # if the string is "quoted"
-	 		rule_number=rule_number+1
-			rules_dict[lhs]=rhs
-			#print "[", rule_number ,"] " +lhs + " : " +rhs
-		print "Found ",rule_number, " rules."
-		return rules_dict
+    def LoadRules(self):
+        rules_dict = dict()
+        line = []
+        line_number = 0
+        rule_number = 0
+        rules_file = codecs. open(
+            self.rules_file, encoding='utf-8', errors='ignore')
+        while 1:
+            line_number = line_number + 1
+            if sys.version_info[0] < 3:
+                text = unicode(rules_file.readline())
+            else:
+                text = rules_file.readline()
+            if text == "":
+                break
+            if text[0] == '#':
+                continue  # this is a comment - ignore
+            text = text.split("#")[0]  # remove the comment part of the line
+            line_number = line_number + 1
+            line = text.strip()  # remove unwanted space
+            if(line == ""):
+                continue
+            if(len(line.split("=")) != 2):
+                print("[Error] Syntax Error in the Rules. Line number: ",  line_number)
+                print("Line: " + text)
+                continue
+            lhs = line.split("=")[0]  .strip()
+            rhs = line.split("=")[1]  .strip()
+            if(len(rhs) > 0):
+                if(lhs[0] == '"'):
+                    lhs = lhs[1:len(lhs)]  # if the string is "quoted"
+                if(lhs[len(lhs) - 1] == '"'):
+                    lhs = lhs[0:len(lhs) - 1]  # if the string is "quoted"
+            if(len(rhs) > 0):
+                if(rhs[0] == '"'):
+                    rhs = rhs[1:len(rhs)]  # if the string is "quoted"
+                if(rhs[len(rhs) - 1] == '"'):
+                    rhs = rhs[0:len(rhs) - 1]	 # if the string is "quoted"
+            rule_number = rule_number + 1
+            rules_dict[lhs] = rhs
+            # print "[", rule_number ,"] " +lhs + " : " +rhs
+        print("Found ", rule_number, " rules.")
+        return rules_dict
 
-	def trim(self,word):
-		punctuations=['~','!','@','#','$','%','^','&','*','(',')','-','+','_','=','{','}','|' ,':',';','<','>','\,','.','?']
-		word=word.strip()
-		index=len(word)-1
-		while index>0:
-			if word[index] in punctuations:
-				word=word[0:index]
-			else:
-				break
-			index=index-1
-		return word
-	def process(self, form):
-		response = """
+    def trim(self, word):
+        punctuations = ['~', '!', '@', '#', '$', '%', '^', '&', '*',
+                        '(', ')', '-', '+', '_', '=', '{', '}', '|', ':', ';', '<', '>', '\,', '.', '?']
+        word = word.strip()
+        index = len(word) - 1
+        while index > 0:
+            if word[index] in punctuations:
+                word = word[0:index]
+            else:
+                break
+            index = index - 1
+        return word
+
+    def process(self, form):
+        response = """
 		<h2>Normalizer</h2></hr>
 		<p>Enter the text for normalizing in the below text area.
 		 Language of each  word will be detected.
@@ -113,24 +123,27 @@ class Normalizer:
 		</br>
 		</form>
 		"""
-		if(form.has_key('input_text')):
-			text = form['input_text'].value	.decode('utf-8')
-			response=response % text
-			result_dict = self.normalize(text)
-			response = response+"<h2>Normalized Result</h2></hr>"
-			response = response+"<table class=\"table1\"><tr><th>Word</th><th>Normalized form</th></tr>"
-			for key in result_dict:
-				response = response+"<tr><td>"+key+"</td><td>"+result_dict[key]+"</td></tr>"
-			response = response+"</table>	"
-		else:
-			response=response % ""
-		return response
-	def get_module_name(self):
-		return "Normalizer"
-	def get_info(self):
-		return 	"Malayalam Normalizer(Experimental)"
+        if(form.has_key('input_text')):
+            text = form['input_text'].value	.decode('utf-8')
+            response = response % text
+            result_dict = self.normalize(text)
+            response = response + "<h2>Normalized Result</h2></hr>"
+            response = response + \
+                "<table class=\"table1\"><tr><th>Word</th><th>Normalized form</th></tr>"
+            for key in result_dict:
+                response = response + "<tr><td>" + key + \
+                    "</td><td>" + result_dict[key] + "</td></tr>"
+            response = response + "</table>	"
+        else:
+            response = response % ""
+        return response
+
+    def get_module_name(self):
+        return "Normalizer"
+
+    def get_info(self):
+        return "Malayalam Normalizer(Experimental)"
+
 
 def getInstance():
-	return Normalizer()
-
-
+    return Normalizer()
