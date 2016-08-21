@@ -78,8 +78,8 @@ class Normalizer:
                 print("[Error] Syntax Error in the Rules. Line number: ",  line_number)
                 print("Line: " + text)
                 continue
-            lhs = line.split("=")[0]  .strip()
-            rhs = line.split("=")[1]  .strip()
+            lhs = line.split("=")[0].strip()
+            rhs = line.split("=")[1].strip()
             if(len(rhs) > 0):
                 if(lhs[0] == '"'):
                     lhs = lhs[1:len(lhs)]  # if the string is "quoted"
@@ -89,7 +89,7 @@ class Normalizer:
                 if(rhs[0] == '"'):
                     rhs = rhs[1:len(rhs)]  # if the string is "quoted"
                 if(rhs[len(rhs) - 1] == '"'):
-                    rhs = rhs[0:len(rhs) - 1]	 # if the string is "quoted"
+                    rhs = rhs[0:len(rhs) - 1] # if the string is "quoted"
             rule_number = rule_number + 1
             rules_dict[lhs] = rhs
             # print "[", rule_number ,"] " +lhs + " : " +rhs
@@ -111,20 +111,20 @@ class Normalizer:
 
     def process(self, form):
         response = """
-		<h2>Normalizer</h2></hr>
-		<p>Enter the text for normalizing in the below text area.
-		 Language of each  word will be detected.
-		 You can give the text in any language and even with mixed language
-		</p>
-		<form action="" method="post">
-		<textarea cols='100' rows='25' name='input_text' id='id1'>%s</textarea>
-		<input  type="submit" id="Stem" value="Normalize"  name="action" style="width:12em;"/>
-		<input type="reset" value="Clear" style="width:12em;"/>
-		</br>
-		</form>
-		"""
+            <h2>Normalizer</h2></hr>
+            <p>Enter the text for normalizing in the below text area.
+             Language of each  word will be detected.
+             You can give the text in any language and even with mixed language
+            </p>
+            <form action="" method="post">
+            <textarea cols='100' rows='25' name='input_text' id='id1'>%s</textarea>
+            <input  type="submit" id="Stem" value="Normalize"  name="action" style="width:12em;"/>
+            <input type="reset" value="Clear" style="width:12em;"/>
+            </br>
+            </form>
+        """
         if(form.has_key('input_text')):
-            text = form['input_text'].value	.decode('utf-8')
+            text = form['input_text'].value.decode('utf-8')
             response = response % text
             result_dict = self.normalize(text)
             response = response + "<h2>Normalized Result</h2></hr>"
@@ -133,7 +133,7 @@ class Normalizer:
             for key in result_dict:
                 response = response + "<tr><td>" + key + \
                     "</td><td>" + result_dict[key] + "</td></tr>"
-            response = response + "</table>	"
+            response = response + "</table>"
         else:
             response = response % ""
         return response
