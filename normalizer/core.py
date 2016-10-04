@@ -62,7 +62,10 @@ class Normalizer:
         while 1:
             line_number = line_number + 1
             if sys.version_info[0] < 3:
-                text = unicode(rules_file.readline())
+                try:
+                    text = unicode(rules_file.readline())
+                except:
+                    text = rules_file.readline()
             else:
                 text = rules_file.readline()
             if text == "":
@@ -75,8 +78,8 @@ class Normalizer:
             if(line == ""):
                 continue
             if(len(line.split("=")) != 2):
-                print("[Error] Syntax Error in the Rules. Line number: ",  line_number)
-                print("Line: " + text)
+                print(("[Error] Syntax Error in the Rules. Line number: ",  line_number))
+                print(("Line: " + text))
                 continue
             lhs = line.split("=")[0].strip()
             rhs = line.split("=")[1].strip()
@@ -93,7 +96,7 @@ class Normalizer:
             rule_number = rule_number + 1
             rules_dict[lhs] = rhs
             # print "[", rule_number ,"] " +lhs + " : " +rhs
-        print("Found ", rule_number, " rules.")
+        # print(("Found ", rule_number, " rules."))
         return rules_dict
 
     def trim(self, word):
@@ -123,7 +126,7 @@ class Normalizer:
             </br>
             </form>
         """
-        if(form.has_key('input_text')):
+        if('input_text' in form):
             text = form['input_text'].value.decode('utf-8')
             response = response % text
             result_dict = self.normalize(text)
