@@ -1,3 +1,2 @@
 # -*- coding: utf-8 -*-
-from  normalizer.core import Normalizer,getInstance
-
+from .core import Normalizer, getInstance

@@ -59,7 +59,7 @@ class Normalizer:
         rule_number = 0
         rules_file = codecs. open(
             self.rules_file, encoding='utf-8', errors='ignore')
-        while 1:
+        while True:
             line_number = line_number + 1
             if sys.version_info[0] < 3:
                 try:
@@ -78,8 +78,10 @@ class Normalizer:
             if(line == ""):
                 continue
             if(len(line.split("=")) != 2):
-                print(("[Error] Syntax Error in the Rules. Line number: ",  line_number))
-                print(("Line: " + text))
+                print(
+                    "[Error] Syntax Error in the Rules. Line number: ",
+                    line_number)
+                print("Line: " + text)
                 continue
             lhs = line.split("=")[0].strip()
             rhs = line.split("=")[1].strip()
@@ -92,7 +94,7 @@ class Normalizer:
                 if(rhs[0] == '"'):
                     rhs = rhs[1:len(rhs)]  # if the string is "quoted"
                 if(rhs[len(rhs) - 1] == '"'):
-                    rhs = rhs[0:len(rhs) - 1] # if the string is "quoted"
+                    rhs = rhs[0:len(rhs) - 1]  # if the string is "quoted"
             rule_number = rule_number + 1
             rules_dict[lhs] = rhs
             # print "[", rule_number ,"] " +lhs + " : " +rhs
