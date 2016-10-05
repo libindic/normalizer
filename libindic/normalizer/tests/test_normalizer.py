@@ -20,6 +20,9 @@ class MalayalamNormalizerTest(TestCase):
         # converted to ണ്‍ന്‍ര്‍ല്‍ള്‍ക്‍ respectively
 
         self.assertEqual(self.normalizer.normalize(u'അവിൽ'), u'അവില്‍')
+        self.assertEqual(self.normalizer.normalize(u'രമണൻ'), u'രമണന്‍')
+        self.assertEqual(self.normalizer.normalize(u'അവൾ'), u'അവള്‍')
+        self.assertEqual(self.normalizer.normalize(u'ശ്രാവൺ'), u'ശ്രാവണ്‍')
 
         # TODO make this work
         # self.assertEqual(normalize("അവിൽപൊതി"), "അവില്‍പൊതി")
