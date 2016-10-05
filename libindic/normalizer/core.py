@@ -33,7 +33,6 @@ class Normalizer:
     def normalize(self, text):
         self.rulesDict = self.LoadRules()
         words = text.split(" ")
-        word_count = len(words)
         result = []
         for word in words:
             word = self.trim(word)
@@ -88,7 +87,8 @@ class Normalizer:
 
     def trim(self, word):
         punctuations = ['~', '!', '@', '#', '$', '%', '^', '&', '*',
-                        '(', ')', '-', '+', '_', '=', '{', '}', '|', ':', ';', '<', '>', '\,', '.', '?']
+                        '(', ')', '-', '+', '_', '=', '{', '}', '|',
+                        ':', ';', '<', '>', '\,', '.', '?']
         word = word.strip()
         index = len(word) - 1
         while index > 0:
@@ -107,8 +107,11 @@ class Normalizer:
              You can give the text in any language and even with mixed language
             </p>
             <form action="" method="post">
-            <textarea cols='100' rows='25' name='input_text' id='id1'>%s</textarea>
-            <input  type="submit" id="Stem" value="Normalize"  name="action" style="width:12em;"/>
+            <textarea cols='100' rows='25' name='input_text' id='id1'>\
+                    %s\
+            </textarea>
+            <input  type="submit" id="Stem" value="Normalize"  name="action" \
+                    style="width:12em;"/>
             <input type="reset" value="Clear" style="width:12em;"/>
             </br>
             </form>
@@ -119,7 +122,8 @@ class Normalizer:
             result_dict = self.normalize(text)
             response = response + "<h2>Normalized Result</h2></hr>"
             response = response + \
-                "<table class=\"table1\"><tr><th>Word</th><th>Normalized form</th></tr>"
+                "<table class=\"table1\"><tr><th>Word</th>\
+                <th>Normalized form</th></tr>"
             for key in result_dict:
                 response = response + "<tr><td>" + key + \
                     "</td><td>" + result_dict[key] + "</td></tr>"
