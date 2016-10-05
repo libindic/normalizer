@@ -61,7 +61,7 @@ class Normalizer:
         while True:
             line_number = line_number + 1
             try:
-                text = unicode(rules_file.readline())
+                text = rules_file.readline().decode('utf-8')
             except:
                 text = rules_file.readline()
             if text == "":
