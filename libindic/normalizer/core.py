@@ -60,10 +60,11 @@ class Normalizer:
             self.rules_file, encoding='utf-8', errors='ignore')
         while True:
             line_number = line_number + 1
+            text_raw = rules_file.readline()
             try:
-                text = rules_file.readline().decode('utf-8')
+                text = text_raw.decode('utf-8')
             except:
-                text = rules_file.readline()
+                text = text_raw
             if text == "":
                 break
             if text[0] == '#':
