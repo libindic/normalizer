@@ -61,12 +61,9 @@ class Normalizer:
             self.rules_file, encoding='utf-8', errors='ignore')
         while True:
             line_number = line_number + 1
-            if sys.version_info[0] < 3:
-                try:
-                    text = unicode(rules_file.readline())
-                except:
-                    text = rules_file.readline()
-            else:
+            try:
+                text = unicode(rules_file.readline())
+            except:
                 text = rules_file.readline()
             if text == "":
                 break
@@ -85,20 +82,8 @@ class Normalizer:
                 continue
             lhs = line.split("=")[0].strip()
             rhs = line.split("=")[1].strip()
-            if(len(rhs) > 0):
-                if(lhs[0] == '"'):
-                    lhs = lhs[1:len(lhs)]  # if the string is "quoted"
-                if(lhs[len(lhs) - 1] == '"'):
-                    lhs = lhs[0:len(lhs) - 1]  # if the string is "quoted"
-            if(len(rhs) > 0):
-                if(rhs[0] == '"'):
-                    rhs = rhs[1:len(rhs)]  # if the string is "quoted"
-                if(rhs[len(rhs) - 1] == '"'):
-                    rhs = rhs[0:len(rhs) - 1]  # if the string is "quoted"
             rule_number = rule_number + 1
             rules_dict[lhs] = rhs
-            # print "[", rule_number ,"] " +lhs + " : " +rhs
-        # print(("Found ", rule_number, " rules."))
         return rules_dict
 
     def trim(self, word):
