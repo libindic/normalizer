@@ -33,7 +33,6 @@ class Normalizer:
     def normalize(self, text):
         self.rulesDict = self.LoadRules()
         words = text.split(" ")
-        word_count = len(words)
         result = []
         for word in words:
             word = self.trim(word)
@@ -59,12 +58,13 @@ class Normalizer:
         rule_number = 0
         rules_file = codecs. open(
             self.rules_file, encoding='utf-8', errors='ignore')
-        while 1:
+        while True:
             line_number = line_number + 1
-            if sys.version_info[0] < 3:
-                text = unicode(rules_file.readline())
-            else:
-                text = rules_file.readline()
+            text_raw = rules_file.readline()
+            try:
+                text = text_raw.decode('utf-8')
+            except:
+                text = text_raw
             if text == "":
                 break
             if text[0] == '#':
@@ -75,30 +75,21 @@ class Normalizer:
             if(line == ""):
                 continue
             if(len(line.split("=")) != 2):
-                print("[Error] Syntax Error in the Rules. Line number: ",  line_number)
+                print(
+                    "[Error] Syntax Error in the Rules. Line number: ",
+                    line_number)
                 print("Line: " + text)
                 continue
             lhs = line.split("=")[0].strip()
             rhs = line.split("=")[1].strip()
-            if(len(rhs) > 0):
-                if(lhs[0] == '"'):
-                    lhs = lhs[1:len(lhs)]  # if the string is "quoted"
-                if(lhs[len(lhs) - 1] == '"'):
-                    lhs = lhs[0:len(lhs) - 1]  # if the string is "quoted"
-            if(len(rhs) > 0):
-                if(rhs[0] == '"'):
-                    rhs = rhs[1:len(rhs)]  # if the string is "quoted"
-                if(rhs[len(rhs) - 1] == '"'):
-                    rhs = rhs[0:len(rhs) - 1] # if the string is "quoted"
             rule_number = rule_number + 1
             rules_dict[lhs] = rhs
-            # print "[", rule_number ,"] " +lhs + " : " +rhs
-        print("Found ", rule_number, " rules.")
         return rules_dict
 
     def trim(self, word):
         punctuations = ['~', '!', '@', '#', '$', '%', '^', '&', '*',
-                        '(', ')', '-', '+', '_', '=', '{', '}', '|', ':', ';', '<', '>', '\,', '.', '?']
+                        '(', ')', '-', '+', '_', '=', '{', '}', '|',
+                        ':', ';', '<', '>', '\,', '.', '?']
         word = word.strip()
         index = len(word) - 1
         while index > 0:
@@ -117,19 +108,23 @@ class Normalizer:
              You can give the text in any language and even with mixed language
             </p>
             <form action="" method="post">
-            <textarea cols='100' rows='25' name='input_text' id='id1'>%s</textarea>
-            <input  type="submit" id="Stem" value="Normalize"  name="action" style="width:12em;"/>
+            <textarea cols='100' rows='25' name='input_text' id='id1'>\
+                    %s\
+            </textarea>
+            <input  type="submit" id="Stem" value="Normalize"  name="action" \
+                    style="width:12em;"/>
             <input type="reset" value="Clear" style="width:12em;"/>
             </br>
             </form>
         """
-        if(form.has_key('input_text')):
+        if('input_text' in form):
             text = form['input_text'].value.decode('utf-8')
             response = response % text
             result_dict = self.normalize(text)
             response = response + "<h2>Normalized Result</h2></hr>"
             response = response + \
-                "<table class=\"table1\"><tr><th>Word</th><th>Normalized form</th></tr>"
+                "<table class=\"table1\"><tr><th>Word</th>\
+                <th>Normalized form</th></tr>"
             for key in result_dict:
                 response = response + "<tr><td>" + key + \
                     "</td><td>" + result_dict[key] + "</td></tr>"

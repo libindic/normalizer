@@ -1,0 +1,13 @@
+#This is comment
+$remove_punctuation=true
+$filter_lang=ml_IN
+ൻറ = ന്റ
+ന്‍പ=മ്പ
+ററ=റ്റ
+റ്‍=ര്‍
+ൺ=ണ്‍
+ൻ=ന്‍
+ർ=ര്‍
+ൽ=ല്‍
+ൾ=ള്‍
+ൿ=ക്‍
