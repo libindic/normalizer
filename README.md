@@ -13,7 +13,7 @@ Malayalam language only.
 1. Clone the repository `git clone https://github.com/libindic/normalizer.git`
 2. Change to the cloned directory `cd normalizer`
 3. Run setup.py to create installable source `python setup.py sdist`
-3. Install using pip `pip install dist/normalizer*.tar.gz`
+3. Install using pip `pip install dist/llibindic-normalizer*.tar.gz`
 
 Note: Prefer using virtualenv for installation as the library is in experimental stage
 
