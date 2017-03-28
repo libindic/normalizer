@@ -36,5 +36,16 @@ To run tests,
 
 ```
 cd normalizer
+pip install -r test-requirements.txt
 python setup.py test
+```
+Sample output:
+
+```
+running test
+running=${PYTHON:-python} -m subunit.run discover libindic --list 
+running=${PYTHON:-python} -m subunit.run discover libindic  --load-list /tmp/tmpggnsy1r0
+Ran 1 tests in 0.001s (-0.000s)
+PASSED (id=9)
+
 ```
