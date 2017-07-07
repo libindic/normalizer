@@ -70,7 +70,6 @@ class Normalizer:
             if text[0] == '#':
                 continue  # this is a comment - ignore
             text = text.split("#")[0]  # remove the comment part of the line
-            line_number = line_number + 1
             line = text.strip()  # remove unwanted space
             if(line == ""):
                 continue
