@@ -13,7 +13,7 @@ Malayalam language only.
 1. Clone the repository `git clone https://github.com/libindic/normalizer.git`
 2. Change to the cloned directory `cd normalizer`
 3. Run setup.py to create installable source `python setup.py sdist`
-3. Install using pip `pip install dist/llibindic-normalizer*.tar.gz`
+3. Install using pip `pip install dist/libindic-normalizer*.tar.gz`
 
 Note: Prefer using virtualenv for installation as the library is in experimental stage
 
@@ -37,15 +37,17 @@ To run tests,
 ```
 cd normalizer
 pip install -r test-requirements.txt
-python setup.py test
+make test
 ```
 Sample output:
 
 ```
-running test
-running=${PYTHON:-python} -m subunit.run discover libindic --list 
-running=${PYTHON:-python} -m subunit.run discover libindic  --load-list /tmp/tmpggnsy1r0
-Ran 1 tests in 0.001s (-0.000s)
-PASSED (id=9)
+coverage run --source=libindic -m unittest discover -s libindic
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+flake8 --max-complexity 10 libindic
 
 ```
