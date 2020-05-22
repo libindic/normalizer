@@ -20,7 +20,6 @@
 
 import codecs
 import os
-import sys
 
 
 class Normalizer:
@@ -62,7 +61,7 @@ class Normalizer:
             text_raw = rules_file.readline()
             try:
                 text = text_raw.decode('utf-8')
-            except:
+            except AttributeError:
                 text = text_raw
             if text == "":
                 break
@@ -81,12 +80,13 @@ class Normalizer:
             lhs = line.split("=")[0].strip()
             rhs = line.split("=")[1].strip()
             rules_dict[lhs] = rhs
+        rules_file.close()
         return rules_dict
 
     def trim(self, word):
         punctuations = ['~', '!', '@', '#', '$', '%', '^', '&', '*',
                         '(', ')', '-', '+', '_', '=', '{', '}', '|',
-                        ':', ';', '<', '>', '\,', '.', '?']
+                        ':', ';', '<', '>', r'\,', '.', '?']
         word = word.strip()
         index = len(word) - 1
         while index > 0:
