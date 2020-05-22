@@ -11,3 +11,6 @@ coveralls
 
 # for fixing failing tests one by one
 testrepository
+
+# for running tests in multiple python versions
+tox
