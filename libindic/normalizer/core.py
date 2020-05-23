@@ -61,7 +61,7 @@ class Normalizer:
             text_raw = rules_file.readline()
             try:
                 text = text_raw.decode('utf-8')
-            except AttributeError:
+            except (AttributeError, UnicodeEncodeError):
                 text = text_raw
             if text == "":
                 break
