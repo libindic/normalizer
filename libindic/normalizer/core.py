@@ -30,6 +30,10 @@ class Normalizer:
         self.rulesDict = dict()
 
     def normalize(self, text):
+        out = [ self.normalize_line(line) for line in text.split('\n') ];
+        return '\n'.join(out)
+
+    def normalize_line(self, text):
         self.rulesDict = self.LoadRules()
         words = text.split(" ")
         result = []
