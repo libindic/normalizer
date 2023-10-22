@@ -10,6 +10,15 @@ format to handle inconsistencies in text. Right now, it supports
 Malayalam language only.
 
 ## Installation
+
+### Directly from git
+
+```
+pip install git+https://github.com/libindic/normalizer.git
+```
+
+This is similar to doing the following:
+
 1. Clone the repository `git clone https://github.com/libindic/normalizer.git`
 2. Change to the cloned directory `cd normalizer`
 3. Run setup.py to create installable source `python setup.py sdist`
