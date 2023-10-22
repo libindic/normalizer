@@ -1,9 +1,18 @@
 [project]
 name = "libindic-normalizer"
-authors = [{name = "Santhosh Thottingal", email="santhosh.thottingal@gmail.com"}]
+authors = [
+  { name = "Santhosh Thottingal", email = "santhosh.thottingal@gmail.com" },
+  { name = "Akshay S Dinesh", email = "asdofindia@gmail.com" },
+  { name = "Balasankar C", email = "balasankarc@autistici.org" },
+  { name = "Diadara", email = "nithin111@gmail.com" },
+  { name = "Jerin Philip", email = "monu1618@gmail.com" },
+  { name = "Jishnu Mohan", email = "jishnu7@gmail.com" },
+  { name = "Vasudev Kamath", email = "kamathvasudev@gmail.com" },
+  { name = "sara-02", email = "sarahmasud02@gmail.com" },
+]
 description = "Malayalam language normalizer (Experimental)"
 requires-python = ">=3.7"
-license = {text = "LGPL-3.0"}
+license = { text = "LGPL-3.0" }
 version = "2.0"
 readme = "README.md"
 classifiers = [
@@ -13,7 +22,7 @@ classifiers = [
   "Operating System :: OS Independent",
   "Intended Audience :: Developers",
   "Intended Audience :: Information Technology",
-  "Programming Language :: Python"
+  "Programming Language :: Python",
 ]
 
 [project.urls]
