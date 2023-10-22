@@ -45,7 +45,7 @@ class Normalizer:
                         0:suffix_pos_itr] + self.rulesDict[suffix]
                     break
                 suffix_pos_itr = suffix_pos_itr + 1
-            if(word_stemmed == ""):
+            if (word_stemmed == ""):
                 word_stemmed = word
             result.append(word_stemmed)
         return "  ".join(result)
@@ -69,9 +69,9 @@ class Normalizer:
                 continue  # this is a comment - ignore
             text = text.split("#")[0]  # remove the comment part of the line
             line = text.strip()  # remove unwanted space
-            if(line == ""):
+            if (line == ""):
                 continue
-            if(len(line.split("=")) != 2):
+            if (len(line.split("=")) != 2):
                 print(
                     "[Error] Syntax Error in the Rules. Line number: ",
                     line_number)
@@ -114,7 +114,7 @@ class Normalizer:
             </br>
             </form>
         """
-        if('input_text' in form):
+        if ('input_text' in form):
             text = form['input_text'].value.decode('utf-8')
             response = response % text
             result_dict = self.normalize(text)
