@@ -20,6 +20,8 @@
 
 import codecs
 import os
+import re
+import string
 
 
 class Normalizer:
@@ -27,32 +29,18 @@ class Normalizer:
     def __init__(self):
         self.rules_file = os.path.join(
             os.path.dirname(__file__), "normalizer_ml.rules")
-        self.rulesDict = dict()
-
-    def normalize(self, text):
-        out = [self.normalize_line(line) for line in text.split('\n')]
-        return '\n'.join(out)
-
-    def normalize_line(self, text):
         self.rulesDict = self.LoadRules()
-        words = text.split(" ")
-        result = []
-        for word in words:
-            word = self.trim(word)
-            word_length = len(word)
-            suffix_pos_itr = 2
-            word_stemmed = ""
-            while suffix_pos_itr < word_length:
-                suffix = word[suffix_pos_itr:word_length]
-                if suffix in self.rulesDict:
-                    word_stemmed = word[
-                        0:suffix_pos_itr] + self.rulesDict[suffix]
-                    break
-                suffix_pos_itr = suffix_pos_itr + 1
-            if (word_stemmed == ""):
-                word_stemmed = word
-            result.append(word_stemmed)
-        return "  ".join(result)
+        pattern = "|".join(map(re.escape, self.rulesDict.keys()))
+        self.regex = re.compile(pattern)
+        self.punctuation_remover = str.maketrans('', '', string.punctuation)
+
+    def normalize(self, text, keep_punctuations=False):
+        replaced = self.regex.sub(
+            lambda match: self.rulesDict[match.group(0)], text
+        )
+        if keep_punctuations:
+            return replaced
+        return replaced.translate(self.punctuation_remover)
 
     def LoadRules(self):
         rules_dict = dict()
@@ -86,20 +74,6 @@ class Normalizer:
             rules_dict[lhs] = rhs
         rules_file.close()
         return rules_dict
-
-    def trim(self, word):
-        punctuations = ['~', '!', '@', '#', '$', '%', '^', '&', '*',
-                        '(', ')', '-', '+', '_', '=', '{', '}', '|',
-                        ':', ';', '<', '>', r'\,', '.', '?']
-        word = word.strip()
-        index = len(word) - 1
-        while index > 0:
-            if word[index] in punctuations:
-                word = word[0:index]
-            else:
-                break
-            index = index - 1
-        return word
 
     def process(self, form):
         response = """

@@ -26,3 +26,11 @@ class MalayalamNormalizerTest(TestCase):
 
         # TODO make this work
         # self.assertEqual(normalize("അവിൽപൊതി"), "അവില്‍പൊതി")
+
+    def test_multiline_string(self):
+        input = """കുഞ്ചൻ നമ്പ്യാർ
+            ചെണ്ടമേളം"""
+        expected = """കുഞ്ചന്‍ നമ്പ്യാര്‍
+            ചെണ്ടമേളം"""
+        actual = self.normalizer.normalize(input)
+        self.assertEqual(actual, expected)
