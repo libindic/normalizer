@@ -1,10 +1,5 @@
 # LibIndic Normalizer
 
-
-[![Build Status](https://travis-ci.org/libindic/normalizer.svg?branch=master)](https://travis-ci.org/libindic/normalizer)
-[![Coverage Status](https://coveralls.io/repos/github/libindic/normalizer/badge.svg?branch=master)](https://coveralls.io/github/libindic/normalizer?branch=master)
-
-
 LibIndic's normalizer module may be used to normalize the text to a canonical
 format to handle inconsistencies in text. Right now, it supports
 Malayalam language only.
