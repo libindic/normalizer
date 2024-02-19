@@ -26,7 +26,9 @@ from importlib_resources import files
 class Normalizer:
 
     def __init__(self):
-        self.rules_file = files('libindic.normalizer.rules').joinpath('normalizer_ml.rules')
+        self.rules_file = files("libindic.normalizer.rules").joinpath(
+            "normalizer_ml.rules"
+        )
         self.rulesDict = self.LoadRules()
         pattern = "|".join(map(re.escape, self.rulesDict.keys()))
         self.regex = re.compile(pattern)
