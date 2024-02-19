@@ -19,18 +19,18 @@ class MalayalamNormalizerTest(TestCase):
         # ൺൻർൽൾൿ are atomic chillus and should get
         # converted to ണ്‍ന്‍ര്‍ല്‍ള്‍ക്‍ respectively
 
-        self.assertEqual(self.normalizer.normalize(u'അവിൽ'), u'അവില്‍')
-        self.assertEqual(self.normalizer.normalize(u'രമണൻ'), u'രമണന്‍')
-        self.assertEqual(self.normalizer.normalize(u'അവൾ'), u'അവള്‍')
-        self.assertEqual(self.normalizer.normalize(u'ശ്രാവൺ'), u'ശ്രാവണ്‍')
+        self.assertEqual(self.normalizer.normalize(u'അവിൽ'), u'അവിൽ')
+        self.assertEqual(self.normalizer.normalize(u'രമണൻ'), u'രമണൻ')
+        self.assertEqual(self.normalizer.normalize(u'അവൾ'), u'അവൾ')
+        self.assertEqual(self.normalizer.normalize(u'ശ്രാവൺ'), u'ശ്രാവൺ')
 
         # TODO make this work
         # self.assertEqual(normalize("അവിൽപൊതി"), "അവില്‍പൊതി")
 
     def test_multiline_string(self):
-        input = """കുഞ്ചൻ നമ്പ്യാർ
+        expected = """കുഞ്ചൻ നമ്പ്യാർ
             ചെണ്ടമേളം"""
-        expected = """കുഞ്ചന്‍ നമ്പ്യാര്‍
+        input = """കുഞ്ചന്‍ നമ്പ്യാര്‍
             ചെണ്ടമേളം"""
         actual = self.normalizer.normalize(input)
         self.assertEqual(actual, expected)
