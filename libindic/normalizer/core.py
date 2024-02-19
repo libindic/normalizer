@@ -18,17 +18,15 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
 
-import codecs
-import os
 import re
 import string
+from importlib_resources import files
 
 
 class Normalizer:
 
     def __init__(self):
-        self.rules_file = os.path.join(
-            os.path.dirname(__file__), "normalizer_ml.rules")
+        self.rules_file = files('rules').joinpath('normalizer_ml.rules')
         self.rulesDict = self.LoadRules()
         pattern = "|".join(map(re.escape, self.rulesDict.keys()))
         self.regex = re.compile(pattern)
@@ -46,8 +44,7 @@ class Normalizer:
         rules_dict = dict()
         line = []
         line_number = 0
-        rules_file = codecs. open(
-            self.rules_file, encoding='utf-8', errors='ignore')
+        rules_file = self.rules_file.open()
         while True:
             line_number = line_number + 1
             text_raw = rules_file.readline()

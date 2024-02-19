@@ -24,17 +24,20 @@ classifiers = [
   "Intended Audience :: Information Technology",
   "Programming Language :: Python",
 ]
+dependencies = [
+  "importlib-resources"
+]
 
 [project.urls]
 Homepage = "https://libindic.org/normalizer"
+
 
 [build-system]
 requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
-
-[tool.setuptools.package-data]
-"*" = ["*.rules"]
+[tool.setuptools.packages.find]
+where = ["libindic"]
 
 [project.entry-points."libindic.api.rest"]
 normalize = "normalizer.expose:normalize"
