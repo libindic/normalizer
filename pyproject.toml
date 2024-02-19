@@ -36,9 +36,6 @@ Homepage = "https://libindic.org/normalizer"
 requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools.packages.find]
-where = ["libindic"]
-
 [project.entry-points."libindic.api.rest"]
 normalize = "normalizer.expose:normalize"
 
