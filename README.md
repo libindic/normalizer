@@ -10,6 +10,7 @@ Malayalam language only.
 - Changes combination chillus to atomic chillu  characters
 - Normalization of vowel signs
 - Corrects some common typos in Malayalam (needs thorough review)
+- Alternate spelling normalizations
 
 ## Installation
 

@@ -34,10 +34,17 @@ class MalayalamNormalizerTest(TestCase):
 
         # Remove punctuations
         self.assertEqual(normalize('1-ാം'), '1ാം')
-        self.assertEqual(normalize('കാൎത്തുമ്പി'), 'കാൎത്തുമ്പി')
+        self.assertEqual(normalize('1-ാം', keep_punctuations=True), '1-ാം')
 
         # Common Typos
         self.assertEqual(normalize('പൂമ്പാററ'), 'പൂമ്പാറ്റ')
+        self.assertEqual(normalize('ദു:ഖത്തിന്റെ'), 'ദുഃഖത്തിന്റെ')
+        self.assertEqual(normalize('ദു:ഖത്തിന്റെ', keep_punctuations=True),
+                         'ദുഃഖത്തിന്റെ')
+
+        # Alternate Spellings
+        self.assertEqual(normalize('കാൎത്തുമ്പി'), 'കാർത്തുമ്പി')
+        self.assertEqual(normalize('ഭാൎയ്യ'), 'ഭാര്യ')
 
     def test_multiline_string(self):
         expected = """കുഞ്ചൻ നമ്പ്യാർ

@@ -1,12 +1,6 @@
 #This is comment
 $remove_punctuation=true
 $filter_lang=ml_IN
-# Common Type Corrections
-ൻറ=ന്റ
-ന്‍പ=മ്പ
-ററ=റ്റ
-റ്‍=ർ
-
 # Chillu normalization to atomic chillus
 ണ്‍=ൺ
 ന്‍=ൻ
@@ -27,3 +21,18 @@ $filter_lang=ml_IN
 ഇൗ=ഈ
 ഉൗ=ഊ
 ഒൗ=ഔ
+
+# Common Typo Corrections
+ൻറ=ന്റ
+ന്‍പ=മ്പ
+ററ=റ്റ
+റ്‍=ർ
+ദു:ഖ=ദുഃഖ
+നമ:=നമഃ
+
+# Alternate written forms
+ൎയ്യ=ര്യ #ഭാൎയ്യ, സൂൎയ്യൻ
+അധ്യാപ=അദ്ധ്യാപ
+ൎ=ർ
+ൽപ=ല്പ
+
