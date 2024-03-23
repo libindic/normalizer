@@ -1,16 +1,21 @@
 #This is comment
 $remove_punctuation=true
 $filter_lang=ml_IN
+# Common Type Corrections
 ൻറ=ന്റ
 ന്‍പ=മ്പ
 ററ=റ്റ
 റ്‍=ർ
+
+# Chillu normalization to atomic chillus
 ണ്‍=ൺ
 ന്‍=ൻ
 ര്‍=ർ
 ല്‍=ൽ
 ള്‍=ൾ
 ക്‍=ൿ
+
+# Vowel sign normalizations
 െെ=ൈ
 ൊ=ൊ
 ാെ=ൊ
