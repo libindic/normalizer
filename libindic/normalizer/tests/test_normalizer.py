@@ -16,16 +16,24 @@ class MalayalamNormalizerTest(TestCase):
     def test_normalize(self):
         self.assertEqual(self.normalizer.normalize(u'പൂമ്പാററ'), u'പൂമ്പാറ്റ')
 
-        # ൺൻർൽൾൿ are atomic chillus and should get
-        # converted to ണ്‍ന്‍ര്‍ല്‍ള്‍ക്‍ respectively
+        # The chillus (ണ്‍ന്‍ര്‍ല്‍ള്‍ക്‍) defined by zero width joiners to be
+        # replaced with atomic chillus (ൺൻർൽൾൿ).
 
         self.assertEqual(self.normalizer.normalize(u'അവിൽ'), u'അവിൽ')
         self.assertEqual(self.normalizer.normalize(u'രമണൻ'), u'രമണൻ')
         self.assertEqual(self.normalizer.normalize(u'അവൾ'), u'അവൾ')
         self.assertEqual(self.normalizer.normalize(u'ശ്രാവൺ'), u'ശ്രാവൺ')
 
-        # TODO make this work
-        # self.assertEqual(normalize("അവിൽപൊതി"), "അവില്‍പൊതി")
+        # Multiple normalisations in a single word
+        self.assertEqual(normalize('കര്‍ണൻ'), 'കർണൻ')
+
+        # ൊ=ൊ, ാെ=ൊ,ോ=ോ,ാേ=ോ: Vowel sign normalizations
+        self.assertEqual(normalize('അവില്‍പാെതി'), 'അവിൽപൊതി')
+        self.assertEqual(normalize('കാേടതി'), 'കോടതി')
+        self.assertEqual(normalize('കോടതി'), 'കോടതി')
+
+        # Common Typos
+        self.assertEqual(normalize('പൂമ്പാററ'), 'പൂമ്പാറ്റ')
 
     def test_multiline_string(self):
         expected = """കുഞ്ചൻ നമ്പ്യാർ
