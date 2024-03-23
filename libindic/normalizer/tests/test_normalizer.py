@@ -27,10 +27,14 @@ class MalayalamNormalizerTest(TestCase):
         # Multiple normalisations in a single word
         self.assertEqual(normalize('കര്‍ണൻ'), 'കർണൻ')
 
-        # ൊ=ൊ, ാെ=ൊ,ോ=ോ,ാേ=ോ: Vowel sign normalizations
+        #  ൊ=ൊ, ാെ=ൊ,ോ=ോ,ാേ=ോ: Vowel sign normalizations
         self.assertEqual(normalize('അവില്‍പാെതി'), 'അവിൽപൊതി')
         self.assertEqual(normalize('കാേടതി'), 'കോടതി')
         self.assertEqual(normalize('കോടതി'), 'കോടതി')
+
+        # Remove punctuations
+        self.assertEqual(normalize('1-ാം'), '1ാം')
+        self.assertEqual(normalize('കാൎത്തുമ്പി'), 'കാൎത്തുമ്പി')
 
         # Common Typos
         self.assertEqual(normalize('പൂമ്പാററ'), 'പൂമ്പാറ്റ')
