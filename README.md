@@ -4,6 +4,14 @@ LibIndic's normalizer module may be used to normalize the text to a canonical
 format to handle inconsistencies in text. Right now, it supports
 Malayalam language only.
 
+## Features
+
+- Removes punctuations by default
+- Changes combination chillus to atomic chillu  characters
+- Normalization of vowel signs
+- Corrects some common typos in Malayalam (needs thorough review)
+- Alternate spelling normalizations
+
 ## Installation
 
 ### Directly from git
@@ -55,3 +63,4 @@ OK
 flake8 --max-complexity 10 libindic
 
 ```
+
