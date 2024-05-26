@@ -18,101 +18,40 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
 
-import re
+import yaml
+import os
 import string
-from importlib_resources import files
-
 
 class Normalizer:
-
-    def __init__(self):
-        self.rules_file = files("libindic.normalizer.rules").joinpath(
-            "normalizer_ml.rules"
-        )
-        self.rulesDict = self.LoadRules()
-        pattern = "|".join(map(re.escape, self.rulesDict.keys()))
-        self.regex = re.compile(pattern)
+    def __init__(self, language_code):
+        self.language_code = language_code
+        self.rules = self.load_rules()
         self.punctuation_remover = str.maketrans('', '', string.punctuation)
 
-    def normalize(self, text, keep_punctuations=False):
-        replaced = self.regex.sub(
-            lambda match: self.rulesDict[match.group(0)], text
-        )
+    def load_rules(self):
+        rules_path = os.path.join(os.path.dirname(__file__), 'rules', f'normalizer.{self.language_code}.yaml')
+        if not os.path.exists(rules_path):
+            raise FileNotFoundError(f"Rules file for language '{self.language_code}' not found.")
+        
+        with open(rules_path, 'r', encoding='utf-8') as file:
+            rules = yaml.safe_load(file)
+        return rules
+    
+    def normalize(self, input_text, keep_punctuations=False,normalize_chillus=True, normalize_vowelsigns=True, normalize_typos=True, normalize_alternateforms=True):
+        if normalize_chillus and 'normalize_chillus' in self.rules:
+            for key, value in self.rules['normalize_chillus'].items():
+                input_text = input_text.replace(key, value)
+        
+        if normalize_vowelsigns and 'normalize_vowelsigns' in self.rules:
+            for key, value in self.rules['normalize_vowelsigns'].items():
+                input_text = input_text.replace(key, value)
+
+        if normalize_typos and 'normalize_typos' in self.rules:
+            for key, value in self.rules['normalize_typos'].items():
+                input_text = input_text.replace(key, value)
+        if normalize_alternateforms and 'normalize_alternateforms' in self.rules:
+            for key, value in self.rules['normalize_alternateforms'].items():
+                input_text = input_text.replace(key, value)
         if keep_punctuations:
-            return replaced
-        return replaced.translate(self.punctuation_remover)
-
-    def LoadRules(self):
-        rules_dict = dict()
-        line = []
-        line_number = 0
-        rules_file = self.rules_file.open()
-        while True:
-            line_number = line_number + 1
-            text_raw = rules_file.readline()
-            try:
-                text = text_raw.decode('utf-8')
-            except (AttributeError, UnicodeEncodeError):
-                text = text_raw
-            if text == "":
-                break
-            if text[0] == '#':
-                continue  # this is a comment - ignore
-            text = text.split("#")[0]  # remove the comment part of the line
-            line = text.strip()  # remove unwanted space
-            if (line == ""):
-                continue
-            if (len(line.split("=")) != 2):
-                print(
-                    "[Error] Syntax Error in the Rules. Line number: ",
-                    line_number)
-                print("Line: " + text)
-                continue
-            lhs = line.split("=")[0].strip()
-            rhs = line.split("=")[1].strip()
-            rules_dict[lhs] = rhs
-        rules_file.close()
-        return rules_dict
-
-    def process(self, form):
-        response = """
-            <h2>Normalizer</h2></hr>
-            <p>Enter the text for normalizing in the below text area.
-             Language of each  word will be detected.
-             You can give the text in any language and even with mixed language
-            </p>
-            <form action="" method="post">
-            <textarea cols='100' rows='25' name='input_text' id='id1'>\
-                    %s\
-            </textarea>
-            <input  type="submit" id="Stem" value="Normalize"  name="action" \
-                    style="width:12em;"/>
-            <input type="reset" value="Clear" style="width:12em;"/>
-            </br>
-            </form>
-        """
-        if ('input_text' in form):
-            text = form['input_text'].value.decode('utf-8')
-            response = response % text
-            result_dict = self.normalize(text)
-            response = response + "<h2>Normalized Result</h2></hr>"
-            response = response + \
-                "<table class=\"table1\"><tr><th>Word</th>\
-                <th>Normalized form</th></tr>"
-            for key in result_dict:
-                response = response + "<tr><td>" + key + \
-                    "</td><td>" + result_dict[key] + "</td></tr>"
-            response = response + "</table>"
-        else:
-            response = response % ""
-        return response
-
-    def get_module_name(self):
-        return "Normalizer"
-
-    def get_info(self):
-        return "Malayalam Normalizer(Experimental)"
-
-
-def getInstance():
-    return Normalizer()
+            return input_text
+        return input_text.translate(self.punctuation_remover)

@@ -1,3 +1,3 @@
-# -*- coding: utf-8 -*-
-__all__ = ["Normalizer", "getInstance"]
-from .core import Normalizer, getInstance
+from .core import Normalizer
+
+__all__ = ['Normalizer']
