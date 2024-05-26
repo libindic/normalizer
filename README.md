@@ -1,8 +1,7 @@
 # LibIndic Normalizer
 
 LibIndic's normalizer module may be used to normalize the text to a canonical
-format to handle inconsistencies in text. Right now, it supports
-Malayalam language only.
+format to handle inconsistencies in text. Apply normalization rules based on the language code. Right now, it supports Malayalam language only.
 
 ## Features
 
@@ -34,7 +33,7 @@ Note: Prefer using virtualenv for installation as the library is in experimental
 Input: Unicode text...
 Output: Normalized unicode text
 
->>> from libindic.normalizer import Normalizer
+>>> from libindic.normalizer import Normalizer("ml")
 >>> normalizer = Normalizer()
 >>> result = normalizer.normalize(u'പൂമ്പാററ')
 >>> print(result)
