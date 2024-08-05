@@ -25,7 +25,8 @@ classifiers = [
   "Programming Language :: Python",
 ]
 dependencies = [
-  "importlib-resources"
+  "importlib-resources",
+  "pyyaml"
 ]
 
 [project.urls]
