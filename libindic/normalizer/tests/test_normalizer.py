@@ -45,6 +45,8 @@ class MalayalamNormalizerTest(TestCase):
         # Alternate Spellings
         self.assertEqual(normalize('കാൎത്തുമ്പി'), 'കാർത്തുമ്പി')
         self.assertEqual(normalize('ഭാൎയ്യ'), 'ഭാര്യ')
+        self.assertEqual(normalize('എൻ്റെ കമ്പ്യൂട്ടറിനു് എന്റെ ഭാഷ.'), 'എന്റെ കമ്പ്യൂട്ടറിന് എന്റെ ഭാഷ')
+
 
     def test_multiline_string(self):
         expected = """കുഞ്ചൻ നമ്പ്യാർ
