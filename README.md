@@ -33,14 +33,12 @@ Note: Prefer using virtualenv for installation as the library is in experimental
 Input: Unicode text...
 Output: Normalized unicode text
 
->>> from libindic.normalizer import Normalizer("ml")
->>> normalizer = Normalizer()
->>> result = normalizer.normalize(u'പൂമ്പാററ')
+>>> from libindic.normalizer import Normalizer
+>>> normalizer = Normalizer("ml")
+>>> result = normalizer.normalize('പൂമ്പാററ')
 >>> print(result)
 പൂമ്പാറ്റ
 ```
-
-For more details read the [docs](http://indicstemmer.rtfd.org/)
 
 ## Running tests
 To run tests, 
