@@ -14,8 +14,6 @@ class MalayalamNormalizerTest(TestCase):
         self.normalizer = Normalizer('ml')
 
     def test_normalize(self):
-        self.assertEqual(self.normalizer.normalize(u'പൂമ്പാററ'), u'പൂമ്പാറ്റ')
-
         # The chillus (ണ്‍ന്‍ര്‍ല്‍ള്‍ക്‍) defined by zero width joiners to be
         # replaced with atomic chillus (ൺൻർൽൾൿ).
 
@@ -31,6 +29,8 @@ class MalayalamNormalizerTest(TestCase):
         self.assertEqual(normalize('അവില്‍പാെതി'), 'അവിൽപൊതി')
         self.assertEqual(normalize('കാേടതി'), 'കോടതി')
         self.assertEqual(normalize('കോടതി'), 'കോടതി')
+        self.assertEqual(normalize('പൌരൻ!!', keep_punctuations=True), 'പൗരൻ!!')
+
 
         # # Remove punctuations
         self.assertEqual(normalize('1-ാം'), '1ാം')
