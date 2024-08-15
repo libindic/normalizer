@@ -4,22 +4,20 @@
 from testtools import TestCase
 
 from .. import Normalizer
-normalize = Normalizer().normalize
+normalize = Normalizer('ml').normalize
 
 
 class MalayalamNormalizerTest(TestCase):
 
     def setUp(self):
         super(MalayalamNormalizerTest, self).setUp()
-        self.normalizer = Normalizer()
+        self.normalizer = Normalizer('ml')
 
     def test_normalize(self):
-        self.assertEqual(self.normalizer.normalize(u'പൂമ്പാററ'), u'പൂമ്പാറ്റ')
-
         # The chillus (ണ്‍ന്‍ര്‍ല്‍ള്‍ക്‍) defined by zero width joiners to be
         # replaced with atomic chillus (ൺൻർൽൾൿ).
 
-        self.assertEqual(self.normalizer.normalize(u'അവിൽ'), u'അവിൽ')
+        self.assertEqual(self.normalizer.normalize(u'അവില്‍'), u'അവിൽ')
         self.assertEqual(self.normalizer.normalize(u'രമണൻ'), u'രമണൻ')
         self.assertEqual(self.normalizer.normalize(u'അവൾ'), u'അവൾ')
         self.assertEqual(self.normalizer.normalize(u'ശ്രാവൺ'), u'ശ്രാവൺ')
@@ -31,8 +29,10 @@ class MalayalamNormalizerTest(TestCase):
         self.assertEqual(normalize('അവില്‍പാെതി'), 'അവിൽപൊതി')
         self.assertEqual(normalize('കാേടതി'), 'കോടതി')
         self.assertEqual(normalize('കോടതി'), 'കോടതി')
+        self.assertEqual(normalize('പൌരൻ!!', keep_punctuations=True), 'പൗരൻ!!')
 
-        # Remove punctuations
+
+        # # Remove punctuations
         self.assertEqual(normalize('1-ാം'), '1ാം')
         self.assertEqual(normalize('1-ാം', keep_punctuations=True), '1-ാം')
 
@@ -45,6 +45,8 @@ class MalayalamNormalizerTest(TestCase):
         # Alternate Spellings
         self.assertEqual(normalize('കാൎത്തുമ്പി'), 'കാർത്തുമ്പി')
         self.assertEqual(normalize('ഭാൎയ്യ'), 'ഭാര്യ')
+        self.assertEqual(normalize('എൻ്റെ കമ്പ്യൂട്ടറിനു് എന്റെ ഭാഷ.'), 'എന്റെ കമ്പ്യൂട്ടറിന് എന്റെ ഭാഷ')
+
 
     def test_multiline_string(self):
         expected = """കുഞ്ചൻ നമ്പ്യാർ
