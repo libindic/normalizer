@@ -30,14 +30,17 @@ Note: Prefer using virtualenv for installation as the library is in experimental
 
 ## Usage
 ```
-Input: Unicode text...
+Input: Unicode text
 Output: Normalized unicode text
 
 >>> from libindic.normalizer import Normalizer
 >>> normalizer = Normalizer("ml")
->>> result = normalizer.normalize('പൂമ്പാററ')
+>>> result = normalizer.normalize('ദു:ഖത്തിന്റെ')
 >>> print(result)
-പൂമ്പാറ്റ
+>> ദുഃഖത്തിന്റെ
+>>> result = normalizer.normalize('പൌരൻ!!', keep_punctuations=True)
+>>> print(result)
+>>> പൗരൻ!!
 ```
 
 ## Running tests
