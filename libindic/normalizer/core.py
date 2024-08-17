@@ -21,6 +21,7 @@
 import yaml
 import os
 import string
+import re
 
 class Normalizer:
     def __init__(self, language_code):
@@ -32,12 +33,24 @@ class Normalizer:
         rules_path = os.path.join(os.path.dirname(__file__), 'rules', f'normalizer.{self.language_code}.yaml')
         if not os.path.exists(rules_path):
             raise FileNotFoundError(f"Rules file for language '{self.language_code}' not found.")
-        
         with open(rules_path, 'r', encoding='utf-8') as file:
             rules = yaml.safe_load(file)
+        
+        # Compile regex patterns
+        if 'regex_patterns' in rules:
+            rules['compiled_regex'] = {}
+            for pattern, replacement in rules['regex_patterns'].items():
+                rules['compiled_regex'][re.compile(pattern, re.UNICODE)] = replacement
+        
         return rules
     
-    def normalize(self, input_text, keep_punctuations=False,normalize_chillus=True, normalize_vowelsigns=True, normalize_typos=True, normalize_alternateforms=True):
+    def apply_regex_patterns(self, text):
+        if 'compiled_regex' in self.rules:
+            for pattern, replacement in self.rules['compiled_regex'].items():
+                text = pattern.sub(replacement, text)
+        return text
+    
+    def normalize(self, input_text, keep_punctuations=False, normalize_chillus=True, normalize_vowelsigns=True, normalize_typos=True, normalize_alternateforms=True, apply_regex=True):
         if normalize_chillus and 'normalize_chillus' in self.rules:
             for key, value in self.rules['normalize_chillus'].items():
                 input_text = input_text.replace(key, value)
@@ -45,13 +58,18 @@ class Normalizer:
         if normalize_vowelsigns and 'normalize_vowelsigns' in self.rules:
             for key, value in self.rules['normalize_vowelsigns'].items():
                 input_text = input_text.replace(key, value)
-
+        
         if normalize_typos and 'normalize_typos' in self.rules:
             for key, value in self.rules['normalize_typos'].items():
                 input_text = input_text.replace(key, value)
+        
         if normalize_alternateforms and 'normalize_alternateforms' in self.rules:
             for key, value in self.rules['normalize_alternateforms'].items():
                 input_text = input_text.replace(key, value)
+        
+        if apply_regex and 'regex_patterns' in self.rules:
+            input_text = self.apply_regex_patterns(input_text)
+        
         if keep_punctuations:
             return input_text
         return input_text.translate(self.punctuation_remover)
