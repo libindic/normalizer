@@ -31,3 +31,9 @@ normalize_alternateforms:
   "അധ്യാപ": "അദ്ധ്യാപ"
   "ൎ": "ർ"
   "ു്": "്"
+
+regex_patterns:
+  '([^\s]+)‌\s': '\1 '  # Remove ZWNJ at the end of words followed by space
+  '([^\s]+)‌$': '\1'    # Remove ZWNJ at the end of the string
+  '(ൺ|ൻ|ർ|ൽ|ൾ|ൿ|ൔ|ൕ|ൖ)‌': '\1'        # Remove ZWNJ after any of the chillu characters
+  '\u200D': ''                    # Remove all ZWJ characters

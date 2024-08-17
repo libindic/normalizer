@@ -6,7 +6,6 @@ from testtools import TestCase
 from .. import Normalizer
 normalize = Normalizer('ml').normalize
 
-
 class MalayalamNormalizerTest(TestCase):
 
     def setUp(self):
@@ -46,7 +45,13 @@ class MalayalamNormalizerTest(TestCase):
         self.assertEqual(normalize('കാൎത്തുമ്പി'), 'കാർത്തുമ്പി')
         self.assertEqual(normalize('ഭാൎയ്യ'), 'ഭാര്യ')
         self.assertEqual(normalize('എൻ്റെ കമ്പ്യൂട്ടറിനു് എന്റെ ഭാഷ.'), 'എന്റെ കമ്പ്യൂട്ടറിന് എന്റെ ഭാഷ')
-
+        
+        # Regex pattern for ZWJ and ZWNJ Removal
+        self.assertEqual(normalize('അവൻ‌ വന്നു'), 'അവൻ വന്നു')
+        self.assertEqual(normalize('അവൻ‌'), 'അവൻ')
+        self.assertEqual(normalize('കൺ‌മണി'), 'കൺമണി')
+        self.assertEqual(normalize('ഹാർഡ്‌വെയർ‌'), 'ഹാർഡ്‌വെയർ')
+        self.assertEqual(normalize('കാല്‍‍പനികം'), 'കാൽപനികം')
 
     def test_multiline_string(self):
         expected = """കുഞ്ചൻ നമ്പ്യാർ
