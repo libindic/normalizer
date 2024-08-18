@@ -41,6 +41,9 @@ Output: Normalized unicode text
 >>> result = normalizer.normalize('പൌരൻ!!', keep_punctuations=True)
 >>> print(result)
 >>> പൗരൻ!!
+>>> result = normalizer.normalize('ദു:ഖത്തിന്റെ', keep_punctuations=True)
+>>> print(result)
+>>> ദുഃഖത്തിന്റെ
 ```
 
 ## Running tests
