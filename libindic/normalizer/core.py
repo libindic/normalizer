@@ -40,6 +40,8 @@ class Normalizer:
         if 'regex_patterns' in rules:
             rules['compiled_regex'] = {}
             for pattern, replacement in rules['regex_patterns'].items():
+                # Replace {PUNCTUATION} placeholder with actual punctuation characters
+                pattern = pattern.replace('{PUNCTUATION}', re.escape(string.punctuation))
                 rules['compiled_regex'][re.compile(pattern, re.UNICODE)] = replacement
         
         return rules

@@ -46,12 +46,24 @@ class MalayalamNormalizerTest(TestCase):
         self.assertEqual(normalize('ഭാൎയ്യ'), 'ഭാര്യ')
         self.assertEqual(normalize('എൻ്റെ കമ്പ്യൂട്ടറിനു് എന്റെ ഭാഷ.'), 'എന്റെ കമ്പ്യൂട്ടറിന് എന്റെ ഭാഷ')
         
-        # Regex pattern for ZWJ and ZWNJ Removal
+        # Regex pattern for ZWJ and ZWNJ Removal, Chillu insertion
         self.assertEqual(normalize('അവൻ‌ വന്നു'), 'അവൻ വന്നു')
+        self.assertEqual(normalize('അവൻ‌. വന്നു'), 'അവൻ വന്നു')
         self.assertEqual(normalize('അവൻ‌'), 'അവൻ')
         self.assertEqual(normalize('കൺ‌മണി'), 'കൺമണി')
         self.assertEqual(normalize('ഹാർഡ്‌വെയർ‌'), 'ഹാർഡ്‌വെയർ')
         self.assertEqual(normalize('കാല്‍‍പനികം'), 'കാൽപനികം')
+        self.assertEqual(normalize('അവര്ക്ക്'), 'അവർക്ക്')
+        self.assertEqual(normalize('അവര്'), 'അവര്')
+        self.assertEqual(normalize('ആര്യ '), 'ആര്യ ')
+        self.assertEqual(normalize('സര്വകലാശാല '), 'സർവകലാശാല ')
+        self.assertEqual(normalize('നമ്പറുള്പ്പെടെ'), 'നമ്പറുൾപ്പെടെ')
+        self.assertEqual(normalize('വള്ളിച്ചെടി'), 'വള്ളിച്ചെടി')
+        self.assertEqual(normalize('കാറ്ഡ്'), 'കാർഡ്')
+        self.assertEqual(normalize('കാറ്'), 'കാറ്')
+        self.assertEqual(normalize('കാറ് '), 'കാറ് ')
+
+
 
     def test_multiline_string(self):
         expected = """കുഞ്ചൻ നമ്പ്യാർ
