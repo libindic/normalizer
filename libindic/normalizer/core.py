@@ -37,9 +37,9 @@ class Normalizer:
             rules = yaml.safe_load(file)
         
         # Compile regex patterns
-        if 'regex_patterns' in rules:
+        if 'common_mistakes' in rules:
             rules['compiled_regex'] = {}
-            for pattern, replacement in rules['regex_patterns'].items():
+            for pattern, replacement in rules['common_mistakes'].items():
                 # Replace {PUNCTUATION} placeholder with actual punctuation characters
                 pattern = pattern.replace('{PUNCTUATION}', re.escape(string.punctuation))
                 rules['compiled_regex'][re.compile(pattern, re.UNICODE)] = replacement
@@ -52,7 +52,7 @@ class Normalizer:
                 text = pattern.sub(replacement, text)
         return text
     
-    def normalize(self, input_text, keep_punctuations=False, normalize_chillus=True, normalize_vowelsigns=True, normalize_typos=True, normalize_alternateforms=True, apply_regex=True):
+    def normalize(self, input_text, keep_punctuations=False, normalize_chillus=True, normalize_vowelsigns=True, normalize_alternateforms=True, correct_commonmistakes = True):
         if normalize_chillus and 'normalize_chillus' in self.rules:
             for key, value in self.rules['normalize_chillus'].items():
                 input_text = input_text.replace(key, value)
@@ -61,15 +61,11 @@ class Normalizer:
             for key, value in self.rules['normalize_vowelsigns'].items():
                 input_text = input_text.replace(key, value)
         
-        if normalize_typos and 'normalize_typos' in self.rules:
-            for key, value in self.rules['normalize_typos'].items():
-                input_text = input_text.replace(key, value)
-        
         if normalize_alternateforms and 'normalize_alternateforms' in self.rules:
             for key, value in self.rules['normalize_alternateforms'].items():
                 input_text = input_text.replace(key, value)
         
-        if apply_regex and 'regex_patterns' in self.rules:
+        if correct_commonmistakes and 'common_mistakes' in self.rules:
             input_text = self.apply_regex_patterns(input_text)
         
         if keep_punctuations:

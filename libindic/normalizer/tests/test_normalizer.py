@@ -35,18 +35,12 @@ class MalayalamNormalizerTest(TestCase):
         self.assertEqual(normalize('1-ാം'), '1ാം')
         self.assertEqual(normalize('1-ാം', keep_punctuations=True), '1-ാം')
 
-        # Common Typos
-        self.assertEqual(normalize('പൂമ്പാററ'), 'പൂമ്പാറ്റ')
-        self.assertEqual(normalize('ദു:ഖത്തിന്റെ'), 'ദുഃഖത്തിന്റെ')
-        self.assertEqual(normalize('ദു:ഖത്തിന്റെ', keep_punctuations=True),
-                         'ദുഃഖത്തിന്റെ')
-
         # Alternate Spellings
         self.assertEqual(normalize('കാൎത്തുമ്പി'), 'കാർത്തുമ്പി')
         self.assertEqual(normalize('ഭാൎയ്യ'), 'ഭാര്യ')
         self.assertEqual(normalize('എൻ്റെ കമ്പ്യൂട്ടറിനു് എന്റെ ഭാഷ.'), 'എന്റെ കമ്പ്യൂട്ടറിന് എന്റെ ഭാഷ')
         
-        # Regex pattern for ZWJ and ZWNJ Removal, Chillu insertion
+        # Regex pattern for ZWJ and ZWNJ Removal, Chillu insertion, Common Mistakes
         self.assertEqual(normalize('അവൻ‌ വന്നു'), 'അവൻ വന്നു')
         self.assertEqual(normalize('അവൻ‌. വന്നു'), 'അവൻ വന്നു')
         self.assertEqual(normalize('അവൻ‌'), 'അവൻ')
@@ -62,6 +56,10 @@ class MalayalamNormalizerTest(TestCase):
         self.assertEqual(normalize('കാറ്ഡ്'), 'കാർഡ്')
         self.assertEqual(normalize('കാറ്'), 'കാറ്')
         self.assertEqual(normalize('കാറ് '), 'കാറ് ')
+        self.assertEqual(normalize('പൂമ്പാററ'), 'പൂമ്പാറ്റ')
+        self.assertEqual(normalize('ദു:ഖത്തിന്റെ'), 'ദുഃഖത്തിന്റെ')
+        self.assertEqual(normalize('ദു:ഖത്തിന്റെ', keep_punctuations=True),
+                         'ദുഃഖത്തിന്റെ')
 
 
 

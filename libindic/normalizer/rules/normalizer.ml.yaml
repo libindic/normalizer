@@ -20,11 +20,6 @@ normalize_vowelsigns:
   "ഉൗ": "ഊ"
   "ഒൗ": "ഔ"
 
-normalize_typos:
-  "ദു:ഖ": "ദുഃഖ"
-  "നമ:": "നമഃ"
-  "ററ": "റ്റ" # Fails for കണ്ടംപററി
-
 normalize_alternateforms:
   "ൻ്റ": "ന്റ"
   "ൎയ്യ": "ര്യ"
@@ -32,7 +27,7 @@ normalize_alternateforms:
   "ൎ": "ർ"
   "ു്": "്"
 
-regex_patterns:
+common_mistakes: # For common mistakes
   '([^\s]+)‌([{PUNCTUATION}\s])': '\1\2'  # Remove ZWNJ at the end of words followed by ASCII punctuation or space.
   # The PUNCTUATIONS are defined in core.py where regex is compiled.
   '([^\s]+)‌$': '\1'  # Remove ZWNJ at the end of the string
@@ -41,4 +36,7 @@ regex_patterns:
   'ര്(?!$)(?!യ)(?![\s{PUNCTUATION}])': 'ർ'  # Replace ര് with ർ when not at word end, string end and not followed by യ
   'റ്(?!$)(?!റ)(?![\s{PUNCTUATION}])': 'ർ'  # Replace ര് with ർ when not at word end, string end and not followed by യ
   'ള്(?!$)(?!ള)(?![\s{PUNCTUATION}])': 'ൾ'  # Replace ള് with ൾ when not at word end, string end and not followed by ള
+  'ദു:ഖ': 'ദുഃഖ'  # Common Mistake
+  'നമ:': 'നമഃ'  # Remove all ZWJ characters
+  'ററ': 'റ്റ' # To correct പൂമ്പാററ. Fails for കണ്ടംപററി
 
