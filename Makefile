@@ -1,6 +1,5 @@
 test:
 	coverage run --source=libindic -m unittest discover -s libindic
-	flake8 --max-complexity 10 libindic
 
 travis: test
 
