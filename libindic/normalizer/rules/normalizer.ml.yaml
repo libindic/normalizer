@@ -19,6 +19,7 @@ normalize_vowelsigns:
   "ഇൗ": "ഈ"
   "ഉൗ": "ഊ"
   "ഒൗ": "ഔ"
+  "ഒാ": "ഓ"
 
 normalize_alternateforms:
   "ൻ്റ": "ന്റ"
@@ -27,16 +28,38 @@ normalize_alternateforms:
   "ൎ": "ർ"
   "ു്": "്"
 
-common_mistakes: # For common mistakes
-  '([^\s]+)‌([{PUNCTUATION}\s])': '\1\2'  # Remove ZWNJ at the end of words followed by ASCII punctuation or space.
+common_mistakes: # Regex patterns for common mistakes
+  '([^\s]+)\u200c([{PUNCTUATION}\s])': '\1\2'  # Remove ZWNJ at the end of words followed by ASCII punctuation or space.
   # The PUNCTUATIONS are defined in core.py where regex is compiled.
-  '([^\s]+)‌$': '\1'  # Remove ZWNJ at the end of the string
-  '(ൺ|ൻ|ർ|ൽ|ൾ|ൿ|ൔ|ൕ|ൖ)‌': '\1'  # Remove ZWNJ after any of the chillu characters
+  '([^\s]+)\u200c$': '\1'  # Remove ZWNJ at the end of the string
+  '(ൺ|ൻ|ർ|ൽ|ൾ|ൿ|ൔ|ൕ|ൖ)\u200c': '\1'  # Remove ZWNJ after any of the chillu characters
   '\u200D': ''  # Remove all ZWJ characters
+  '\u200B': ''  # Remove all Zero Width space characters
+  '\u00AD': ''  # Remove all soft hyphen characters
   'ര്(?![\s{PUNCTUATION}]|യ|$)': 'ർ'  # Replace ര് with ർ when not at word end, string end and not followed by യ
   'റ്(?![\s{PUNCTUATION}\u200c]|യ|വ|ല|ര|റ|$)': 'ർ'  # Replace റ് with ർ when not at word end, string end and not followed by റ, ര, വ, ല, യ
   'ള്(?![\s{PUNCTUATION}]|ള|$)': 'ൾ'  # Replace ള് with ൾ when not at word end, string end and not followed by ള
   'ദു:ഖ': 'ദുഃഖ'  # Common Mistake
   'നമ:': 'നമഃ'  # Remove all ZWJ characters
   'ററ': 'റ്റ' # To correct പൂമ്പാററ. Fails for കണ്ടംപററി
+  '(^|\s)ാ': '\1ആ'               # Map vowel sign "ാ" to "ആ" at the beginning of a word
+  '(^|\s)ി': '\1ഇ'               # Map vowel sign "ി" to "ഇ" at the beginning of a word
+  '(^|\s)ീ': '\1ഈ'               # Map vowel sign "ീ" to "ഈ" at the beginning of a word
+  '(^|\s)ു': '\1ഉ'               # Map vowel sign "ു" to "ഉ" at the beginning of a word
+  '(^|\s)ൂ': '\1ഊ'               # Map vowel sign "ൂ" to "ഊ" at the beginning of a word
+  '(^|\s)ൃ': '\1ഋ'               # Map vowel sign "ൃ" to "ഋ" at the beginning of a word
+  '(^|\s)െ': '\1എ'               # Map vowel sign "െ" to "എ" at the beginning of a word
+  '(^|\s)േ': '\1ഏ'               # Map vowel sign "േ" to "ഏ" at the beginning of a word
+  '(^|\s)ൈ': '\1ഐ'              # Map vowel sign "ൈ" to "ഐ" at the beginning of a word
+  '(^|\s)ൊ': '\1ഒ'               # Map vowel sign "ൊ" to "ഒ" at the beginning of a word
+  '(^|\s)ോ': '\1ഓ'               # Map vowel sign "ോ" to "ഓ" at the beginning of a word
+  '(^|\s)ൗ': '\1ഔ'               # Map vowel sign "ൌ" to "ഔ" at the beginning of a word
+  # Common Error patterns described in https://github.com/smc/corpus/blob/master/tools/corpora-cleanup.sed
+  'ൻറെ' : 'ന്റെ'
+  'പക്ഷെ': 'പക്ഷേ' 
+  'ൻറും' : 'ന്റും'
+  'ൻറ്': 'ന്റ്'
+  'ൻറിൽ' : 'ന്റിൽ'
+  'ുൻപോൾ' : 'ുമ്പോൾ'
+
 

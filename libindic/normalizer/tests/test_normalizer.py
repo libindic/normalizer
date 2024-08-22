@@ -45,7 +45,7 @@ class MalayalamNormalizerTest(TestCase):
         self.assertEqual(normalize('അവൻ‌'), 'അവൻ')
         self.assertEqual(normalize('കൺ‌മണി'), 'കൺമണി')
         self.assertEqual(normalize('ഹാർഡ്‌വെയർ‌'), 'ഹാർഡ്‌വെയർ')
-        self.assertEqual(normalize('സോഫ്റ്റ്‍വെയർ'), 'സോഫ്റ്റ്വെയർ') #soft_ware written with an zwj, before ware gets removed.
+        self.assertEqual(normalize('സോഫ്റ്റ്‍വെയർ'), 'സോഫ്റ്റ്വെയർ') #soft_ware written with an zwj, before ‌_ware gets removed.
         self.assertEqual(normalize('ആറ്റ്‌ലി'), 'ആറ്റ്‌ലി')
         self.assertEqual(normalize('ഇൻസ്റ്റിറ്റ്യൂട്ട്'), 'ഇൻസ്റ്റിറ്റ്യൂട്ട്')
         self.assertEqual(normalize('കാല്‍‍പനികം'), 'കാൽപനികം')
@@ -63,6 +63,11 @@ class MalayalamNormalizerTest(TestCase):
         self.assertEqual(normalize('ദു:ഖത്തിന്റെ'), 'ദുഃഖത്തിന്റെ')
         self.assertEqual(normalize('ദു:ഖത്തിന്റെ', keep_punctuations=True),
                          'ദുഃഖത്തിന്റെ')
+        self.assertEqual(normalize(' ൊന്നിലോ'), ' ഒന്നിലോ')
+        self.assertEqual(normalize('ൌന്നത്യം'), 'ഔന്നത്യം')
+        self.assertEqual(normalize('പാൻറ്'), 'പാന്റ്')
+
+
 
 
 
