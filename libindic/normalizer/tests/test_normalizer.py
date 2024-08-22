@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 from testtools import TestCase
 
 from .. import Normalizer
@@ -46,6 +45,9 @@ class MalayalamNormalizerTest(TestCase):
         self.assertEqual(normalize('അവൻ‌'), 'അവൻ')
         self.assertEqual(normalize('കൺ‌മണി'), 'കൺമണി')
         self.assertEqual(normalize('ഹാർഡ്‌വെയർ‌'), 'ഹാർഡ്‌വെയർ')
+        self.assertEqual(normalize('സോഫ്റ്റ്‍വെയർ'), 'സോഫ്റ്റ്വെയർ') #soft_ware written with an zwj, before ware gets removed.
+        self.assertEqual(normalize('ആറ്റ്‌ലി'), 'ആറ്റ്‌ലി')
+        self.assertEqual(normalize('ഇൻസ്റ്റിറ്റ്യൂട്ട്'), 'ഇൻസ്റ്റിറ്റ്യൂട്ട്')
         self.assertEqual(normalize('കാല്‍‍പനികം'), 'കാൽപനികം')
         self.assertEqual(normalize('അവര്ക്ക്'), 'അവർക്ക്')
         self.assertEqual(normalize('അവര്'), 'അവര്')
@@ -57,6 +59,7 @@ class MalayalamNormalizerTest(TestCase):
         self.assertEqual(normalize('കാറ്'), 'കാറ്')
         self.assertEqual(normalize('കാറ് '), 'കാറ് ')
         self.assertEqual(normalize('പൂമ്പാററ'), 'പൂമ്പാറ്റ')
+        self.assertEqual(normalize('കാറ്റ്'), 'കാറ്റ്')
         self.assertEqual(normalize('ദു:ഖത്തിന്റെ'), 'ദുഃഖത്തിന്റെ')
         self.assertEqual(normalize('ദു:ഖത്തിന്റെ', keep_punctuations=True),
                          'ദുഃഖത്തിന്റെ')

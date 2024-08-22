@@ -33,9 +33,9 @@ common_mistakes: # For common mistakes
   '([^\s]+)‌$': '\1'  # Remove ZWNJ at the end of the string
   '(ൺ|ൻ|ർ|ൽ|ൾ|ൿ|ൔ|ൕ|ൖ)‌': '\1'  # Remove ZWNJ after any of the chillu characters
   '\u200D': ''  # Remove all ZWJ characters
-  'ര്(?!$)(?!യ)(?![\s{PUNCTUATION}])': 'ർ'  # Replace ര് with ർ when not at word end, string end and not followed by യ
-  'റ്(?!$)(?!റ)(?![\s{PUNCTUATION}])': 'ർ'  # Replace ര് with ർ when not at word end, string end and not followed by യ
-  'ള്(?!$)(?!ള)(?![\s{PUNCTUATION}])': 'ൾ'  # Replace ള് with ൾ when not at word end, string end and not followed by ള
+  'ര്(?![\s{PUNCTUATION}]|യ|$)': 'ർ'  # Replace ര് with ർ when not at word end, string end and not followed by യ
+  'റ്(?![\s{PUNCTUATION}\u200c]|യ|വ|ല|ര|റ|$)': 'ർ'  # Replace റ് with ർ when not at word end, string end and not followed by റ, ര, വ, ല, യ
+  'ള്(?![\s{PUNCTUATION}]|ള|$)': 'ൾ'  # Replace ള് with ൾ when not at word end, string end and not followed by ള
   'ദു:ഖ': 'ദുഃഖ'  # Common Mistake
   'നമ:': 'നമഃ'  # Remove all ZWJ characters
   'ററ': 'റ്റ' # To correct പൂമ്പാററ. Fails for കണ്ടംപററി
