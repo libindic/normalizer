@@ -27,12 +27,12 @@ class MalayalamNormalizerTest(TestCase):
         self.assertEqual(normalize('അവില്‍പാെതി'), 'അവിൽപൊതി')
         self.assertEqual(normalize('കാേടതി'), 'കോടതി')
         self.assertEqual(normalize('കോടതി'), 'കോടതി')
-        self.assertEqual(normalize('പൌരൻ!!', keep_punctuations=True), 'പൗരൻ!!')
+        self.assertEqual(normalize('പൌരൻ!!', remove_punctuations=False), 'പൗരൻ!!')
 
 
         # # Remove punctuations
         self.assertEqual(normalize('1-ാം'), '1ാം')
-        self.assertEqual(normalize('1-ാം', keep_punctuations=True), '1-ാം')
+        self.assertEqual(normalize('1-ാം', remove_punctuations=False), '1-ാം')
 
         # Alternate Spellings
         self.assertEqual(normalize('കാൎത്തുമ്പി'), 'കാർത്തുമ്പി')
@@ -60,21 +60,24 @@ class MalayalamNormalizerTest(TestCase):
         self.assertEqual(normalize('കാറ് '), 'കാറ് ')
         self.assertEqual(normalize('പൂമ്പാററ'), 'പൂമ്പാറ്റ')
         self.assertEqual(normalize('കാറ്റ്'), 'കാറ്റ്')
-        self.assertEqual(normalize('ദു:ഖത്തിന്റെ'), 'ദുഃഖത്തിന്റെ')
-        self.assertEqual(normalize('ദു:ഖത്തിന്റെ', keep_punctuations=True),
+        self.assertEqual(normalize('ദു:ഖത്തിന്റെ–'), 'ദുഃഖത്തിന്റെ')
+        self.assertEqual(normalize('ദു:ഖത്തിന്റെ', remove_punctuations=False),
                          'ദുഃഖത്തിന്റെ')
         self.assertEqual(normalize(' ൊന്നിലോ'), ' ഒന്നിലോ')
         self.assertEqual(normalize('ൌന്നത്യം'), 'ഔന്നത്യം')
         self.assertEqual(normalize('പാൻറ്'), 'പാന്റ്')
-
-
+        self.assertEqual(normalize('കൺ്മഷി'), 'കൺമഷി')
+        self.assertEqual(normalize('“ആൻറി”', remove_punctuations=False), '"ആന്റി"')
+        self.assertEqual(normalize('“ആൻറി', remove_punctuations=True), 'ആന്റി') # This happens by dafault
+        self.assertEqual(normalize('അമ്മ’'), 'അമ്മ')
+        self.assertEqual(normalize('അമ്മ’', remove_punctuations=False), "അമ്മ'")
 
 
 
     def test_multiline_string(self):
         expected = """കുഞ്ചൻ നമ്പ്യാർ
-            ചെണ്ടമേളം"""
+        ചെണ്ടമേളം"""
         input = """കുഞ്ചന്‍ നമ്പ്യാര്‍
-            ചെണ്ടമേളം"""
+        ചെണ്ടമേളം"""
         actual = self.normalizer.normalize(input)
         self.assertEqual(actual, expected)

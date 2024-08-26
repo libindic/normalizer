@@ -1,5 +1,5 @@
 normalize_chillus:
-  "ണ്‍": "ൺ"
+  "ണ്‍": "ൺ" # ZWJ chullus to atomic Chillus
   "ന്‍": "ൻ"
   "ര്‍": "ർ"
   "ല്‍": "ൽ"
@@ -28,11 +28,31 @@ normalize_alternateforms:
   "ൎ": "ർ"
   "ു്": "്"
 
-common_mistakes: # Regex patterns for common mistakes
+        # text=text.replace('„', r'"')
+        # text=text.replace('“', r'"')
+        # text=text.replace('”', r'"')
+        # text=text.replace('–', r'-')
+        # text=text.replace('—', r' - ')
+        # text=text.replace('´', r"'")
+        # text=text.replace('‘', r"'")
+        # text=text.replace('‚', r"'")
+        # text=text.replace('’', r"'")
+        # text=text.replace("''", r'"')
+        # text=text.replace('´´', r'"')
+        # text=text.replace('…', r'...')
+
+common_mistakes: # Regex patterns for common mistakes in Malayalam raw corpus, ASR/OCR outputs
+  '(“|”)': '"' # Replace Unicode left/right double quotes with ASCII double quotes
+  "(‘|’)": "'" # Replace Unicode left/right single quotes with ASCII single quotes/apostraphe
+  "(–|—’)": "-" # Replace ENDASH and EMDASH with ASCII single quotes/apostraphe
+  '…': '...' # Replace Ellipsis with ASCII dots
+  '(\u00A0|\u200B)': ' ' #Repalce NO_BREAK_space and ZERO_WIDTH_SPACE='\u200B' with normal space
+  '\uFEFF|\uFFFE|\u2060|\u00AD' : '' # Remove BYTE_ORDER_MARK='\uFEFF' BYTE_ORDER_MARK_2='\uFFFE' WORD_JOINER='' SOFT_HYPHEN=''
   '([^\s]+)\u200c([{PUNCTUATION}\s])': '\1\2'  # Remove ZWNJ at the end of words followed by ASCII punctuation or space.
   # The PUNCTUATIONS are defined in core.py where regex is compiled.
   '([^\s]+)\u200c$': '\1'  # Remove ZWNJ at the end of the string
   '(ൺ|ൻ|ർ|ൽ|ൾ|ൿ|ൔ|ൕ|ൖ)\u200c': '\1'  # Remove ZWNJ after any of the chillu characters
+  '(ൺ|ൻ|ർ|ൽ|ൾ|ൿ|ൔ|ൕ|ൖ)്': '\1'  # Remove virama after any of the chillu characters
   '\u200D': ''  # Remove all ZWJ characters
   '\u200B': ''  # Remove all Zero Width space characters
   '\u00AD': ''  # Remove all soft hyphen characters
@@ -59,7 +79,7 @@ common_mistakes: # Regex patterns for common mistakes
   'പക്ഷെ': 'പക്ഷേ' 
   'ൻറും' : 'ന്റും'
   'ൻറ്': 'ന്റ്'
-  'ൻറിൽ' : 'ന്റിൽ'
+  'ൻറി' : 'ന്റി'
   'ുൻപോൾ' : 'ുമ്പോൾ'
 
 

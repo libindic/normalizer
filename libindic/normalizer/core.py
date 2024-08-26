@@ -52,7 +52,7 @@ class Normalizer:
                 text = pattern.sub(replacement, text)
         return text
     
-    def normalize(self, input_text, keep_punctuations=False, normalize_chillus=True, normalize_vowelsigns=True, normalize_alternateforms=True, correct_commonmistakes = True):
+    def normalize(self, input_text, remove_punctuations=True, normalize_chillus=True, normalize_vowelsigns=True, normalize_alternateforms=True, correct_commonmistakes = True):
         if normalize_chillus and 'normalize_chillus' in self.rules:
             for key, value in self.rules['normalize_chillus'].items():
                 input_text = input_text.replace(key, value)
@@ -68,6 +68,6 @@ class Normalizer:
         if correct_commonmistakes and 'common_mistakes' in self.rules:
             input_text = self.apply_regex_patterns(input_text)
         
-        if keep_punctuations:
-            return input_text
-        return input_text.translate(self.punctuation_remover)
+        if remove_punctuations:
+            return input_text.translate(self.punctuation_remover) # Removes only ASCII punctuations
+        return input_text
