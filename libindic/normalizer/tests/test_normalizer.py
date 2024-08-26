@@ -71,6 +71,7 @@ class MalayalamNormalizerTest(TestCase):
         self.assertEqual(normalize('“ആൻറി', remove_punctuations=True), 'ആന്റി') # This happens by dafault
         self.assertEqual(normalize('അമ്മ’'), 'അമ്മ')
         self.assertEqual(normalize('അമ്മ’', remove_punctuations=False), "അമ്മ'")
+        self.assertEqual(normalize('ഇ–മെയിൽ', remove_punctuations=False), "ഇ-മെയിൽ")
 
 
 

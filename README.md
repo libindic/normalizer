@@ -38,12 +38,18 @@ Output: Normalized unicode text
 >>> result = normalizer.normalize('ദു:ഖത്തിന്റെ')
 >>> print(result)
 >> ദുഃഖത്തിന്റെ
->>> result = normalizer.normalize('പൌരൻ!!', keep_punctuations=True)
+>>> result = normalizer.normalize('പൌരൻ!!', remove_punctuations=False)
 >>> print(result)
 >>> പൗരൻ!!
->>> result = normalizer.normalize('ദു:ഖത്തിന്റെ', keep_punctuations=True)
+>>> result = normalizer.normalize('ദു:ഖത്തിന്റെ', remove_punctuations=False) # This is considered a mistake and not a real punctuation
 >>> print(result)
 >>> ദുഃഖത്തിന്റെ
+>>> result = normalizer.normalize('ഇ–മെയിൽ', remove_punctuations=False) # Punctuation not removed. But normalized to ASCII
+>>> print(result)
+>>> ഇ-മെയിൽ
+>>> result = normalizer.normalize('ഇ–മെയിൽ') # Punctuation removed in two steps. Normalized to ASCII and then removed.
+>>> print(result)
+>>> ഇമെയിൽ
 ```
 
 ## Running tests

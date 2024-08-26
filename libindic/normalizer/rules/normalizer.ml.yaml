@@ -28,19 +28,6 @@ normalize_alternateforms:
   "ൎ": "ർ"
   "ു്": "്"
 
-        # text=text.replace('„', r'"')
-        # text=text.replace('“', r'"')
-        # text=text.replace('”', r'"')
-        # text=text.replace('–', r'-')
-        # text=text.replace('—', r' - ')
-        # text=text.replace('´', r"'")
-        # text=text.replace('‘', r"'")
-        # text=text.replace('‚', r"'")
-        # text=text.replace('’', r"'")
-        # text=text.replace("''", r'"')
-        # text=text.replace('´´', r'"')
-        # text=text.replace('…', r'...')
-
 common_mistakes: # Regex patterns for common mistakes in Malayalam raw corpus, ASR/OCR outputs
   '(“|”)': '"' # Replace Unicode left/right double quotes with ASCII double quotes
   "(‘|’)": "'" # Replace Unicode left/right single quotes with ASCII single quotes/apostraphe
