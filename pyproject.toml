@@ -9,6 +9,7 @@ authors = [
   { name = "Jishnu Mohan", email = "jishnu7@gmail.com" },
   { name = "Vasudev Kamath", email = "kamathvasudev@gmail.com" },
   { name = "sara-02", email = "sarahmasud02@gmail.com" },
+  { name = "Kavya Manohar", email = "sakhi.kavya@gmail.com" },
 ]
 description = "Malayalam language normalizer (Experimental)"
 requires-python = ">=3.7"
