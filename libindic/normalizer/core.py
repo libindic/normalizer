@@ -43,7 +43,6 @@ class Normalizer:
                 # Replace {PUNCTUATION} placeholder with actual punctuation characters
                 pattern = pattern.replace('{PUNCTUATION}', re.escape(string.punctuation))
                 rules['compiled_regex'][re.compile(pattern, re.UNICODE)] = replacement
-        
         return rules
     
     def apply_regex_patterns(self, text):

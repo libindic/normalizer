@@ -35,9 +35,9 @@ Output: Normalized unicode text
 
 >>> from libindic.normalizer import Normalizer
 >>> normalizer = Normalizer("ml")
->>> result = normalizer.normalize('ദു:ഖത്തിന്റെ')
+>>> result = normalizer.normalize('ഇ–മെയിൽ ദു:ഖത്തിന്റെ  ൊന്നിലോ പാൻറ് 2011 സര്വകലാശാല അവള്‍ അവില്‍പാെതി ഹാർഡ്‌വെയർ‌ അവര്ക്ക് കാറ്ഡ് നമ്പറുള്പ്പെടെ പൌരൻ കൺ്മഷി “ഭാൎയ്യ”')
 >>> print(result)
->> ദുഃഖത്തിന്റെ
+>> ഇമെയിൽ ദുഃഖത്തിന്റെ  ഒന്നിലോ പാന്റ് 2011 സർവകലാശാല അവൾ അവിൽപൊതി ഹാർഡ്‌വെയർ അവർക്ക് കാർഡ് നമ്പറുൾപ്പെടെ പൗരൻ കൺമഷി ഭാര്യ
 >>> result = normalizer.normalize('പൌരൻ!!', remove_punctuations=False)
 >>> print(result)
 >>> പൗരൻ!!
@@ -66,10 +66,6 @@ Sample output:
 coverage run --source=libindic -m unittest discover -s libindic
 .
 ----------------------------------------------------------------------
-Ran 1 test in 0.001s
-
-OK
-flake8 --max-complexity 10 libindic
-
+Ran 2 test in 0.014s
 ```
 

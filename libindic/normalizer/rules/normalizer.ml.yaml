@@ -66,7 +66,6 @@ common_mistakes: # Regex patterns for common mistakes in Malayalam raw corpus, A
   'പക്ഷെ': 'പക്ഷേ' 
   'ൻറും' : 'ന്റും'
   'ൻറ്': 'ന്റ്'
-  'ൻറി' : 'ന്റി'
   'ുൻപോൾ' : 'ുമ്പോൾ'
 
 
