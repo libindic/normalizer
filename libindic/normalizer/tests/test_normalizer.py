@@ -16,12 +16,12 @@ class MalayalamNormalizerTest(TestCase):
         # replaced with atomic chillus (ൺൻർൽൾൿ).
 
         self.assertEqual(self.normalizer.normalize(u'അവില്‍'), u'അവിൽ')
-        self.assertEqual(self.normalizer.normalize(u'രമണൻ'), u'രമണൻ')
-        self.assertEqual(self.normalizer.normalize(u'അവൾ'), u'അവൾ')
-        self.assertEqual(self.normalizer.normalize(u'ശ്രാവൺ'), u'ശ്രാവൺ')
+        self.assertEqual(self.normalizer.normalize(u'രമണന്‍'), u'രമണൻ')
+        self.assertEqual(self.normalizer.normalize(u'അവള്‍'), u'അവൾ')
+        self.assertEqual(self.normalizer.normalize(u'ശ്രാവണ്‍'), u'ശ്രാവൺ')
 
         # Multiple normalisations in a single word
-        self.assertEqual(normalize('കര്‍ണൻ'), 'കർണൻ')
+        self.assertEqual(normalize('കര്‍ണന്‍'), 'കർണൻ')
 
         #  ൊ=ൊ, ാെ=ൊ,ോ=ോ,ാേ=ോ: Vowel sign normalizations
         self.assertEqual(normalize('അവില്‍പാെതി'), 'അവിൽപൊതി')
