@@ -1,1 +1,1 @@
-include libindic/normalizer/rules/*.rules
+include libindic/normalizer/rules/*.yaml
