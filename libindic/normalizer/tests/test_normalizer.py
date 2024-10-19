@@ -77,6 +77,14 @@ class MalayalamNormalizerTest(TestCase):
         self.assertEqual(normalize('പിംഗ് '), "പിങ്ങ് ")
         self.assertEqual(normalize('ദി കിംഗ്.', remove_punctuations=False), "ദി കിങ്ങ്.")
         self.assertEqual(normalize('ദി കിംഗ്!', remove_punctuations=True), "ദി കിങ്ങ്")
+        self.assertEqual(normalize('വന്നു എന്നു പറഞ്ഞു', remove_punctuations=True), "വന്നു എന്ന് പറഞ്ഞു")
+        self.assertEqual(normalize('വന്നിട്ടില്ലെന്നു പറഞ്ഞു', remove_punctuations=True), "വന്നിട്ടില്ലെന്ന് പറഞ്ഞു")
+        self.assertEqual(normalize('ഒന്നു പോലെ', remove_punctuations=True), "ഒന്ന് പോലെ")
+        self.assertEqual(normalize('മൂന്നു', remove_punctuations=False), "മൂന്ന്")
+        self.assertEqual(normalize('ഒന്നു-രണ്ടു', remove_punctuations=False), "ഒന്ന്-രണ്ട്")
+        self.assertEqual(normalize('ഒമ്പതു ഒമ്പതാമത്തെ', remove_punctuations=False), "ഒൻപത് ഒൻപതാമത്തെ")
+        self.assertEqual(normalize('ഏഴു സ്വരങ്ങളും', remove_punctuations=False), "ഏഴ് സ്വരങ്ങളും")
+
 
     def test_multiline_string(self):
         expected = """കുഞ്ചൻ നമ്പ്യാർ

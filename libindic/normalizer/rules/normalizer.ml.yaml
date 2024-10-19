@@ -24,9 +24,11 @@ normalize_vowelsigns:
 normalize_alternateforms:
   "ൻ്റ": "ന്റ"
   "ൎയ്യ": "ര്യ"
-  "അധ്യാപ": "അദ്ധ്യാപ"
+  "ദ്ധ്യ" : "ധ്യ" # മാധ്യമം, സാധ്യം, അധ്യാപനം, സാധ്യത, മധ്യം, മധ്യസ്ഥത, അധ്യായം
+  "വിദ്യാർത്ഥി": "വിദ്യാർഥി"
   "ൎ": "ർ"
   "ു്": "്"
+
 
 common_mistakes: # Regex patterns for common mistakes in Malayalam raw corpus, ASR/OCR outputs
   '(“|”)': '"' # Replace Unicode left/right double quotes with ASCII double quotes
@@ -67,4 +69,19 @@ common_mistakes: # Regex patterns for common mistakes in Malayalam raw corpus, A
   'ൻറും' : 'ന്റും'
   'ൻറ്': 'ന്റ്'
   'ുൻപോൾ' : 'ുമ്പോൾ'
-  'ംഗ്([{PUNCTUATION}\s]|$)': 'ങ്ങ്\1'  # ബീഗിംഗ് -> ബീജിങ്ങ്; കമ്പ്യൂട്ടിംഗ് -> കമ്പ്യൂട്ടിങ്ങ്. Work only if it is at string end or followed by space
+  'ുൻപോൾ' : 'ുമ്പോൾ'
+  '(ഒ|അ)മ്പത' : '\1ൻപത'
+  'ംഗ്([{PUNCTUATION}\s]|$)': 'ങ്ങ്\1'  # ബീഗിംഗ് -> ബീജിങ്ങ്; കമ്പ്യൂട്ടിംഗ് -> കമ്പ്യൂട്ടിങ്ങ്. Work only if it is at string end or followed by space or punctuation
+  # Samvruthokaram in script as ു and ് ->  ് 
+  '(എ|െ|ഒ|മൂ)ന്നു([{PUNCTUATION}\s]|$)': '\1ന്ന്\2'  # എന്നു -> എന്ന്; െന്നു -> െന്ന് ; ഒന്നു -> ഒന്ന്
+  'രണ്ടു([{PUNCTUATION}\s]|$)': 'രണ്ട്\1'
+  'നാലു([{PUNCTUATION}\s]|$)': 'നാല്\1'
+  'അഞ്ചു([{PUNCTUATION}\s]|$)': 'അഞ്ച്\1'
+  'ആറു([{PUNCTUATION}\s]|$)' : 'ആറ്\1'
+  'ഏഴു([{PUNCTUATION}\s]|$)' : 'ഏഴ്\1'
+  'എട്ടു([{PUNCTUATION}\s]|$)' : 'എട്ട്\1'
+  '(ഒ|അ)ൻപതു([{PUNCTUATION}\s]|$)' : '\1ൻപത്\2'
+  'പത്തു([{PUNCTUATION}\s]|$)' : 'പത്ത്\1'
+  'എൺപതു([{PUNCTUATION}\s]|$)' : 'എൺപത്\1'
+  'നൂറു([{PUNCTUATION}\s]|$)' : 'നൂറ്\1'
+  'തൊണ്ണൂറു([{PUNCTUATION}\s]|$)' : 'തൊണ്ണൂറ്\1'
