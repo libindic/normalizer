@@ -46,6 +46,7 @@ class MalayalamNormalizerTest(TestCase):
         self.assertEqual(normalize('കൺ‌മണി'), 'കൺമണി')
         self.assertEqual(normalize('ഹാർഡ്‌വെയർ‌'), 'ഹാർഡ്‌വെയർ')
         self.assertEqual(normalize('സോഫ്റ്റ്‍വെയർ'), 'സോഫ്റ്റ്വെയർ') #soft_ware written with an zwj, before ‌_ware gets removed.
+        self.assertEqual(normalize('ആല‌-', remove_punctuations=False), 'ആല-') #ZWNJ, if followed by punctuation is removed
         self.assertEqual(normalize('ആറ്റ്‌ലി'), 'ആറ്റ്‌ലി')
         self.assertEqual(normalize('ഇൻസ്റ്റിറ്റ്യൂട്ട്'), 'ഇൻസ്റ്റിറ്റ്യൂട്ട്')
         self.assertEqual(normalize('കാല്‍‍പനികം'), 'കാൽപനികം')
@@ -56,13 +57,13 @@ class MalayalamNormalizerTest(TestCase):
         self.assertEqual(normalize('നമ്പറുള്പ്പെടെ'), 'നമ്പറുൾപ്പെടെ')
         self.assertEqual(normalize('വള്ളിച്ചെടി'), 'വള്ളിച്ചെടി')
         self.assertEqual(normalize('കാറ്ഡ്'), 'കാർഡ്')
-        self.assertEqual(normalize('കാറ്'), 'കാറ്')
+        self.assertEqual(normalize('കാറ്-'), 'കാറ്')
         self.assertEqual(normalize('കാറ് '), 'കാറ് ')
         self.assertEqual(normalize('പൂമ്പാററ'), 'പൂമ്പാറ്റ')
         self.assertEqual(normalize('കാറ്റ്'), 'കാറ്റ്')
         self.assertEqual(normalize('ദു:ഖത്തിന്റെ–'), 'ദുഃഖത്തിന്റെ')
-        self.assertEqual(normalize('ദു:ഖത്തിന്റെ', remove_punctuations=False),
-                         'ദുഃഖത്തിന്റെ')
+        self.assertEqual(normalize('ദു:ഖത്തിന്റെ-', remove_punctuations=False),
+                         'ദുഃഖത്തിന്റെ-')
         self.assertEqual(normalize(' ൊന്നിലോ'), ' ഒന്നിലോ')
         self.assertEqual(normalize('ൌന്നത്യം'), 'ഔന്നത്യം')
         self.assertEqual(normalize('പാൻറ്'), 'പാന്റ്')
@@ -71,8 +72,11 @@ class MalayalamNormalizerTest(TestCase):
         self.assertEqual(normalize('അമ്മ’'), 'അമ്മ')
         self.assertEqual(normalize('അമ്മ’', remove_punctuations=False), "അമ്മ'")
         self.assertEqual(normalize('ഇ–മെയിൽ', remove_punctuations=False), "ഇ-മെയിൽ")
-
-
+        self.assertEqual(normalize('ഇ–മെയിൽ'), "ഇമെയിൽ")
+        self.assertEqual(normalize('ബീജിംഗ്'), "ബീജിങ്ങ്")
+        self.assertEqual(normalize('പിംഗ് '), "പിങ്ങ് ")
+        self.assertEqual(normalize('ദി കിംഗ്.', remove_punctuations=False), "ദി കിങ്ങ്.")
+        self.assertEqual(normalize('ദി കിംഗ്!', remove_punctuations=True), "ദി കിങ്ങ്")
 
     def test_multiline_string(self):
         expected = """കുഞ്ചൻ നമ്പ്യാർ
