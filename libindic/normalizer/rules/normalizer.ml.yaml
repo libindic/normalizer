@@ -28,6 +28,12 @@ normalize_alternateforms:
   "വിദ്യാർത്ഥി": "വിദ്യാർഥി"
   "ൎ": "ർ"
   "ു്": "്"
+  "അൽഭുത" : "അദ്ഭുത"
+  "അത്ഭുത" : "അദ്ഭുത"
+  "ചികിൽസ" : "ചികിത്സ"
+  "പ്രഗൽഭ" : "പ്രഗത്ഭ"
+  "ഉൽഘ" : "ഉദ്ഘ"
+  "ഉത്ഘ" : "ഉദ്ഘ"
 
 
 common_mistakes: # Regex patterns for common mistakes in Malayalam raw corpus, ASR/OCR outputs
