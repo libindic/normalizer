@@ -56,7 +56,6 @@ common_mistakes: # Regex patterns for common mistakes in Malayalam raw corpus, A
   'ള്(?![\s{PUNCTUATION}]|ള|$)': 'ൾ'  # Replace ള് with ൾ when not at word end, string end and not followed by ള
   'ദു:ഖ': 'ദുഃഖ'  # Common Mistake
   'നമ:': 'നമഃ'  # Common Mistake
-  'ററ': 'റ്റ' # To correct പൂമ്പാററ. Fails for കണ്ടംപററി
   '(^|\s)ാ': '\1ആ'               # Map vowel sign "ാ" to "ആ" at the beginning of a word
   '(^|\s)ി': '\1ഇ'               # Map vowel sign "ി" to "ഇ" at the beginning of a word
   '(^|\s)ീ': '\1ഈ'               # Map vowel sign "ീ" to "ഈ" at the beginning of a word
