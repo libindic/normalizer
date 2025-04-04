@@ -60,6 +60,9 @@ class MalayalamNormalizerTest(TestCase):
         self.assertEqual(normalize('കാറ്-'), 'കാറ്')
         self.assertEqual(normalize('കാറ് '), 'കാറ് ')
         self.assertEqual(normalize('കാറ്റ്'), 'കാറ്റ്')
+        self.assertEqual(normalize('മീറ്ററിൽ'), 'മീറ്ററിൽ')
+        self.assertEqual(normalize('പിഡബ്ള്യൂഡി'), 'പിഡബ്ള്യൂഡി')     
+        self.assertEqual(normalize('ബാറ്റ്സ്മാൻ'), 'ബാറ്റ്സ്മാൻ')
         self.assertEqual(normalize('അൽഭുതം അത്ഭുതം ചികിൽസാപിഴവ്', remove_punctuations=False), "അദ്ഭുതം അദ്ഭുതം ചികിത്സാപിഴവ്")
         self.assertEqual(normalize('ദു:ഖത്തിന്റെ–'), 'ദുഃഖത്തിന്റെ')
         self.assertEqual(normalize('ദു:ഖത്തിന്റെ-', remove_punctuations=False),

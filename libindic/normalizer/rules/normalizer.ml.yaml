@@ -52,8 +52,8 @@ common_mistakes: # Regex patterns for common mistakes in Malayalam raw corpus, A
   '\u200B': ''  # Remove all Zero Width space characters
   '\u00AD': ''  # Remove all soft hyphen characters
   'ര്(?![\s{PUNCTUATION}]|യ|$)': 'ർ'  # Replace ര് with ർ when not at word end, string end and not followed by യ
-  'റ്(?![\s{PUNCTUATION}\u200c]|യ|വ|ല|ര|റ|$)': 'ർ'  # Replace റ് with ർ when not at word end, string end and not followed by റ, ര, വ, ല, യ
-  'ള്(?![\s{PUNCTUATION}]|ള|$)': 'ൾ'  # Replace ള് with ൾ when not at word end, string end and not followed by ള
+  '(?<!റ്)റ്(?![\s{PUNCTUATION}\u200c]|യ|വ|ല|ര|റ|$)': 'ർ'  # Replace റ് with ർ when not at word end, string end and not followed by റ, ര, വ, ല, യ and not preceded by റ
+  'ള്(?![\s{PUNCTUATION}]|ള|യ|$)': 'ൾ'  # Replace ള് with ൾ when not at word end, string end and not followed by ള
   'ദു:ഖ': 'ദുഃഖ'  # Common Mistake
   'നമ:': 'നമഃ'  # Common Mistake
   '(^|\s)ാ': '\1ആ'               # Map vowel sign "ാ" to "ആ" at the beginning of a word
